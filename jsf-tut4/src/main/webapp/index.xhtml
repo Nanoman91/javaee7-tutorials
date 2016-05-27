@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">
+			<h1>Flow Scope Sample</h1>
+		</ui:define>
+		
+		<ui:define name="content">
+		
+			<h:form>
+				<h:commandButton styleClass="btn btn-default" action="regist" value="Registration" />
+			</h:form>
+			
+			<h:dataTable value="#{allData}" var="data" rendered="#{not empty allData}"
+				styleClass="table table-striped table-responsive">
+				<h:column>
+					<f:facet name="header">
+						Name
+					</f:facet>
+					#{data.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Name
+					</f:facet>
+					#{data.name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Phone
+					</f:facet>
+					#{data.phone}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Email
+					</f:facet>
+					#{data.email}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Interst
+					</f:facet>
+					#{data.interests}
+				</h:column>
+			</h:dataTable>
+			
+			<h:outputText value="There is no data!" rendered="#{empty allData}" />
+			
+		</ui:define>
+	</ui:composition>
+</html>

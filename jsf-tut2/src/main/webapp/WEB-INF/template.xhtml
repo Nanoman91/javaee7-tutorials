@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title>JSF Tutorial</title>
+	<h:outputStylesheet name="bootstrap.min.css" library="css"></h:outputStylesheet>
+	
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+</h:head> 
+<body> 
+
+	<div class="container">
+	
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-xs-4">
+					
+					<ul>
+						<li>
+							<h:link outcome="/requestView" value="Request Scope" />
+						</li>
+						<li>
+							<h:link outcome="/sessionView" value="Session Scope" />
+						</li>
+						<li>
+							<h:link outcome="/applicationView" value="Application Scope" />
+						</li>
+						<li>
+							<h:link outcome="/ajaxView" value="View Scope with Ajax" />
+						</li>
+					</ul>
+					
+				</div>
+				
+				<div class="col-xs-8">
+					<ui:insert name="content"></ui:insert>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<h:outputScript name="jquery-2.2.3.min.js" library="js"></h:outputScript>
+	<h:outputScript name="bootstrap.min.js" library="js"></h:outputScript>
+</body> 
+</html>

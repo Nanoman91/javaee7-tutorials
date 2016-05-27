@@ -1,0 +1,35 @@
+<div xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<composite:interface>
+	<composite:attribute name="item" type="com.solt.jsf.entity.Item" required="true" />
+	<composite:attribute name="actionListener" method-signature="void action(com.solt.jsf.entity.Item)" 
+		required="true" />
+	<composite:attribute name="target" required="true" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="thumbnail">
+		<h:graphicImage name="#{cc.attrs.item.picture}" library="img" />
+		<div class="caption">
+			<div class="row">
+				<span class="col-xs-8">
+					#{cc.attrs.item.item} <h:outputText value="#{cc.attrs.item.price} MMK" styleClass="Fs10 badge" />
+				</span>
+				
+				<h:form styleClass="col-xs-4 ">
+					<h:commandLink actionListener="#{cc.attrs.actionListener}" styleClass="AlRight"
+						p:data-toggle="tooltip" p:data-placement="left" title="Add Item">
+						<f:ajax execute="@this" render="#{cc.attrs.target}"></f:ajax>
+						<i class="glyphicon glyphicon-plus"></i>
+					</h:commandLink>
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+</composite:implementation>
+</div>

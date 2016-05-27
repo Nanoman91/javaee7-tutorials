@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			My Orders
+		</ui:define>
+		
+		<ui:define name="content">
+			<h3>Order History</h3>
+			
+			<ui:repeat var="bill" value="#{myOrderBean.bills}">
+			
+				<div class="card">
+					<div class="card-content">
+						
+						<h:outputText value="#{bill.businessDate}" 
+							styleClass="card-title">
+							<f:converter binding="#{customDateConverter}" />
+						</h:outputText>
+							
+						<h:outputText value="#{bill.count}" styleClass="chip right" />
+						
+						<h:dataTable value="#{bill.orders}" var="od" styleClass="responsive-table bordered">
+						
+							<h:column>
+								<f:facet name="header">
+									Item
+								</f:facet>
+								#{od.item.name}
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									Count
+								</f:facet>
+								#{od.count}
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									Unit Price
+								</f:facet>
+								#{od.item.price}
+								<f:facet name="footer">
+								Total
+								</f:facet>
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									Total
+								</f:facet>
+								#{od.total}
+								<f:facet name="footer">
+								#{bill.total}
+								</f:facet>
+							</h:column>
+
+						</h:dataTable>	
+					</div>
+				</div>
+				
+			</ui:repeat>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,114 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		
+		<ui:define name="title">User List</ui:define>
+		
+		<ui:define name="pageTitle">User List</ui:define>	
+		
+		<ui:define name="content">
+			<!-- Upload Form -->
+			<h:messages showDetail="true" showSummary="false" />
+
+			<div class="row">
+				<div class="col-lg-10 col-sm-12">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3>Upload Users File</h3>
+						</div>
+						<h:form enctype="multipart/form-data">
+							<div class="panel-body">
+								<h:inputFile value="#{userUploadBean.file}" styleClass="MarRight10" />	
+								
+								<h:commandButton action="#{userUploadBean.upload}" value="Upload" styleClass="btn btn-default" />
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				
+				<div class="col-lg-10 col-sm-12">
+					<h:dataTable value="#{userList.list}" var="u" 
+						styleClass="table table-striped table-responsive" >
+						<!-- Name  -->
+						<h:column>
+							<f:facet name="header">
+							Name
+							</f:facet>
+							<h:link value="#{u.name}" outcome="userDetails">
+								<f:param name="id" value="#{u.id}"></f:param>
+							</h:link>
+							
+						</h:column>
+				
+						<!-- Gender  -->
+						<h:column>
+							<f:facet name="header">
+							Date of Birth
+							</f:facet>
+							<h:outputText value="#{u.dob}" converter="#{dobConverter}" />
+						</h:column>
+
+						<!-- Gender  -->
+						<h:column>
+							<f:facet name="header">
+							Gender
+							</f:facet>
+							<h:outputText value="#{u.gender}" />
+						</h:column>
+				
+						<!-- Education  -->
+						<h:column>
+							<f:facet name="header">
+							Education
+							</f:facet>
+							<h:outputText value="#{u.education}" />
+						</h:column>
+				
+						<!-- Phone  -->
+						<h:column>
+							<f:facet name="header">
+							Phone
+							</f:facet>
+							<h:outputText value="#{u.phone}" />
+						</h:column>
+				
+						<!-- Email  -->
+						<h:column>
+							<f:facet name="header">
+							Email
+							</f:facet>
+							<h:outputText value="#{u.email}" />
+						</h:column>
+				
+						<!-- Address  -->
+						<h:column>
+							<f:facet name="header">
+							Address
+							</f:facet>
+							<h:outputText value="#{u.address}" />
+						</h:column>
+						
+						<h:column>
+							<h:button value="x" >
+								<f:param name="action" value="delete"></f:param>
+								<f:param name="id" value="#{u.id}"></f:param>
+							</h:button>
+						</h:column>
+				
+					</h:dataTable>
+				</div>
+						
+			</div>
+			
+		</ui:define>
+	
+	</ui:composition>
+
+</div>
+

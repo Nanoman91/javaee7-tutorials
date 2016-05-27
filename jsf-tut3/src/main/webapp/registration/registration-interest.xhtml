@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="pageTitle">
+			<h2>Interest Information</h2>
+		</ui:define>
+		
+		<ui:define name="contents">
+			<div class="row">
+				<div class="col-lg-9">
+					<h:form styleClass="form-horizontal">
+					
+						<div class="form-group">
+							<h:outputLabel value="Interest" styleClass="control-label col-lg-3" />
+							<div class="col-lg-9">
+								<h:selectManyCheckbox value="#{myRegistration.data.interest.interest}" styleClass="multi-select">
+									<f:selectItems value="#{selectInterest}"></f:selectItems>
+								</h:selectManyCheckbox>
+							</div>						
+						</div>
+						
+						<div class="form-group">
+							<h:outputLabel value="Comment" styleClass="control-label col-lg-3" />
+							<div class="col-lg-9">
+								<h:inputTextarea value="#{myRegistration.data.interest.comment}" styleClass="form-control" />
+							</div>						
+						</div>
+
+						<div class="form-group">
+							<div class="col-lg-9 col-lg-offset-3">
+								<h:commandButton action="registration" value="Back" styleClass="btn btn-info" />
+								<h:commandButton action="registration-confirm" value="Confirm" styleClass="btn btn-success" />
+							</div>						
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</ui:define>	
+		
+	</ui:composition>
+</html>

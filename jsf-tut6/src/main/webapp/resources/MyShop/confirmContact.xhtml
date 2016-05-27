@@ -1,0 +1,33 @@
+<div xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<composite:interface>
+		<composite:attribute name="user" type="com.solt.jsf.entity.User" required="true" />
+		<composite:attribute name="orderDate" type="java.util.Date" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		
+		<h:panelGrid columns="2" styleClass="table table-condensed MarTop20">
+		
+			<h:outputLabel value="Name" />
+			<h:outputText value="#{cc.attrs.user.name}" />	
+			
+			<h:outputLabel value="Phone" />
+			<h:outputText value="#{cc.attrs.user.phone}" />	
+			
+			<h:outputLabel value="Email" />
+			<h:outputText value="#{cc.attrs.user.email}" />	
+			
+			<h:outputLabel value="Address" />
+			<h:outputText value="#{cc.attrs.user.address}" />	
+			
+			<h:outputLabel value="Ordering Time" />
+			<h:outputText value="#{cc.attrs.orderDate}" />	
+
+		</h:panelGrid>
+
+	</composite:implementation>
+</div>

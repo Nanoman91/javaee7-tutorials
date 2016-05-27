@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ms="http://java.sun.com/jsf/composite/MyShop">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">Check Out</ui:define>
+
+		<ui:define name="content">
+		
+			<h3 class="page-header">My Cart</h3>
+			
+			<div class="row">
+				<div class="col-lg-8">
+
+					<h:form id="orderTable">
+					
+						<h:dataTable value="#{cartBean.orders}" var="od" styleClass="table table-condensed">
+							<h:column>
+								<f:facet name="header">Item</f:facet>
+								<h:commandLink actionListener="#{cartBean.remove(od)}" styleClass="MarRight10"
+									p:data-toggle="tooltip" p:data-placement="left" title="Delete">
+									<i class="glyphicon glyphicon-remove"></i>
+									<f:ajax render=":orderTable :securityMenu:cartCount" execute="@this" ></f:ajax>
+								</h:commandLink>
+								#{od.item.item}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Count</f:facet>
+								
+								<span>
+									<h:commandLink styleClass="MarRight10" actionListener="#{cartBean.countDown(od)}">
+										<i class="glyphicon glyphicon-chevron-down"></i>
+										<f:ajax render=":orderTable :securityMenu:cartCount" execute="@this"></f:ajax>
+									</h:commandLink>
+								</span>
+
+								<h:outputText value="#{od.count}" styleClass="MarRight10" />
+								
+								<span>
+									<h:commandLink styleClass="MarRight10" actionListener="#{cartBean.countUp(od)}">
+										<i class="glyphicon glyphicon-chevron-up"></i>
+										<f:ajax render=":orderTable :securityMenu:cartCount" execute="@this"></f:ajax>
+									</h:commandLink>
+								</span>								
+
+		
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Unit Price(MMK)</f:facet>
+								#{od.item.price}
+								<f:facet name="footer">Total</f:facet>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Total (MMK)</f:facet>
+								#{od.total} 
+								<f:facet name="footer">#{cartBean.bill.total}</f:facet>
+							</h:column>
+						
+						</h:dataTable>
+
+						<h:commandLink action="#{cartBean.clear()}" styleClass="btn btn-danger MarRight5">
+							<i class="glyphicon glyphicon-trash"></i> Clear Cart
+						</h:commandLink>
+
+						<h:commandLink action="#{orderBean.confirm()}" styleClass="btn btn-info MarRight5" 
+							rendered="#{not cartBean.login}">
+							<i class="glyphicon glyphicon-user"></i> Add User Info
+						</h:commandLink>
+						
+						<h:commandLink action="/confirm" styleClass="btn btn-success" rendered="#{cartBean.login}">
+							<i class="glyphicon glyphicon-list-alt"></i> Confirm
+						</h:commandLink>
+
+					</h:form>
+
+				</div>
+			
+			</div>
+		
+		</ui:define>
+	</ui:composition>
+</html>

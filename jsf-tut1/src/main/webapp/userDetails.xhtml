@@ -1,0 +1,63 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		
+		<ui:define name="title">Details</ui:define>
+		
+		<ui:define name="pageTitle">
+			<h:button outcome="/userEdit" styleClass="btn btn-info" value="Edit">
+				<f:param name="id" value="#{userDetails.user.id}"></f:param>
+			</h:button>
+			User Details
+		</ui:define>	
+		
+		<ui:define name="content">
+		
+			<div class="row">
+				<div class="col-lg-6 col-sm-8">
+
+					<h:panelGrid columns="2" styleClass="table table-striped">
+				
+						<h:outputLabel value="Name" />
+						<h:outputText value="#{userDetails.user.name}" />
+				
+						<h:outputLabel value="Gender" />
+						<h:outputText value="#{userDetails.user.gender}" />
+						
+						<h:outputLabel value="Education" />
+						<h:outputText value="#{userDetails.user.education}" />
+						
+						<h:outputLabel value="Phone" />
+						<h:outputText value="#{userDetails.user.phone}" />
+						
+						<h:outputLabel value="Email" />
+						<h:outputText value="#{userDetails.user.email}" />
+						
+						<h:outputLabel value="Address" />
+						<h:outputText value="#{userDetails.user.address}" />
+				
+						<h:outputLabel value="Interest" />
+						<h:panelGroup>
+							<ul>
+								<ui:repeat var="interest" value="#{userDetails.user.interestList}">
+									<li>#{interest}</li>
+								</ui:repeat>
+							</ul>
+						</h:panelGroup>
+						
+						<h:panelGroup />
+						
+						
+					</h:panelGrid>
+							
+				</div>
+			</div>
+
+
+		</ui:define>
+	
+	</ui:composition>
+
+</div>

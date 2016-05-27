@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		
+		<ui:define name="title">
+			<h1>Confirm</h1>
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+				<h:panelGrid columns="2" styleClass="table table-striped">
+					
+					<h:outputLabel value="Name" />
+					<h:outputText value="#{registrationBean.interest.name}" />
+					
+					<h:outputLabel value="Phone" />
+					<h:outputText value="#{registrationBean.interest.phone}" />
+	
+					<h:outputLabel value="Email" />
+					<h:outputText value="#{registrationBean.interest.email}" />
+	
+					<h:outputLabel value="Interest" />
+					<h:outputText value="#{registrationBean.interest.interests}" />
+	
+					<h:outputLabel value="Comment" />
+					<h:outputText value="#{registrationBean.interest.comment}" />
+	
+					<h:panelGroup></h:panelGroup>
+					<h:panelGroup>
+						<h:commandButton action="regist" value="Back" styleClass="btn btn-danger MarRight10" />
+						<h:commandButton action="#{registrationBean.save}" value="Save" styleClass="btn btn-danger MarRight10" />
+					</h:panelGroup>
+	
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

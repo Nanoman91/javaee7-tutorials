@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ms="http://java.sun.com/jsf/composite/MyShop">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">User Info</ui:define>
+		
+		<ui:define name="content">
+			
+			<h3 class="page-header">User Information</h3>
+			
+			<div class="row">
+				<div class="col-lg-6 col-md-8 col-sm-12">
+					<ms:userProfile user="#{cartBean.user}" showEditBtn="true" />	
+				</div>
+			</div>
+		
+			<ms:editUser user="#{cartBean.user}" targetView="userInfo" cmpId="editModel" />	
+		
+		</ui:define>
+	</ui:composition>
+</html>

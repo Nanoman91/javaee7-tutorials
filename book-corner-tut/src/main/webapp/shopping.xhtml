@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			My Cart
+		</ui:define>
+		
+		<ui:define name="content">
+			<h:form>
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">My Items</span>
+					<h:commandLink action="#{shoppingCart.takeOrder()}" 
+						styleClass="red right btn-floating">
+						<i class="material-icons">shop</i>
+					</h:commandLink>
+					<div class="divider" />
+					<h:dataTable styleClass="striped" value="#{shoppingCart.orders}" var="od">
+						
+						<h:column>
+							<f:facet name="header">
+								Item
+							</f:facet>
+							<h:commandLink actionListener="#{shoppingCart.delete(od)}"  
+								styleClass="btn-flat pink-text">
+								<i class="material-icons">delete</i>
+								<f:ajax render="@form :mobile:cartCount :web:cartCount"></f:ajax>
+							</h:commandLink>
+							#{od.item.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								Count
+							</f:facet>
+							<h:commandLink actionListener="#{shoppingCart.countUp(od)}" 
+								styleClass="btn-flat pink-text">
+								<i class="material-icons">add_circle</i>
+								<f:ajax render="@form :mobile:cartCount :web:cartCount"></f:ajax>
+							</h:commandLink>
+
+							#{od.count}
+
+							<h:commandLink actionListener="#{shoppingCart.countDown(od)}" 
+								styleClass="btn-flat pink-text">
+								<i class="material-icons">remove_circle</i>
+								<f:ajax render="@form :mobile:cartCount :web:cartCount"></f:ajax>
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								Unit Price
+							</f:facet>
+							#{od.item.price}
+							<f:facet name="footer">
+								Total Price
+							</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								Total
+							</f:facet>
+							#{od.total}
+							<f:facet name="footer">
+								#{shoppingCart.bill.total}
+							</f:facet>
+						</h:column>
+						
+					</h:dataTable>
+				</div>
+			</div>
+			</h:form>
+
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">My Contact</span>
+					<h:link outcome="/profile" styleClass="btn-floating red right" >
+						<i class="material-icons">contact_phone</i>
+					</h:link>
+					<div class="divider" />
+					
+					<div class="row">
+						<h:panelGrid columns="2" styleClass="col s12 m8">
+							<h:outputLabel value="Name" />
+							<h:outputText value="#{securityInfo.user.name}" />
+
+							<h:outputLabel value="Phone" />
+							<h:outputText value="#{securityInfo.user.phone}" />
+
+							<h:outputLabel value="Email" />
+							<h:outputText value="#{securityInfo.user.email}" />
+
+							<h:outputLabel value="Address" />
+							<h:outputText value="#{securityInfo.user.address}" />
+						</h:panelGrid>
+					</div>
+				
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

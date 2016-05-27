@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://java.sun.com/jsf/composite/book"> 
+
+<h:head>
+	<title><ui:insert name="title"></ui:insert> | Book Corner</title>
+	
+	<h:outputStylesheet name="materialize.min.css" library="css"></h:outputStylesheet>
+	<h:outputStylesheet name="material-icon.css" library="css"></h:outputStylesheet>
+	<h:outputStylesheet name="common.css" library="css"></h:outputStylesheet>
+	
+</h:head> 
+<body> 
+
+	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
+	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
+
+	<h:form rendered="#{not securityInfo.login}">
+	
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="#login" class="modal-trigger">Sign In</a></li>
+			<li><a href="#signUp" class="modal-trigger">Sign Up</a></li>
+		</ul>
+		
+		<ul id="dropdown2" class="dropdown-content">
+			<li><a href="#login" class="modal-trigger">Sign In</a></li>
+			<li><a href="#signUp" class="modal-trigger">Sign Up</a></li>
+		</ul>
+		
+	</h:form>
+	
+	<h:form rendered="#{securityInfo.login}">
+	
+		<ul id="dropdown1" class="dropdown-content">
+			<li>
+				<h:link outcome="/profile" value="Profile"/>
+			</li>
+			<li>
+				<h:commandLink action="#{loginBean.logout()}" value="Sign Out" />
+			</li>
+		</ul>
+		
+		<ul id="dropdown2" class="dropdown-content">
+			<li>
+				<h:link outcome="/profile" value="Profile"/>
+			</li>
+			<li>
+				<h:commandLink action="#{loginBean.logout()}" value="Sign Out" />
+			</li>
+		</ul>
+		
+	</h:form>
+
+	<div class="navbar-fixed">
+	<nav class="teal">
+		<div class="container">
+		
+			<div class="nav-wrapper">
+				<h:link outcome="/index" styleClass="brand-logo">Book Corner </h:link>
+				<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			
+				<ul class="right hide-on-med-and-down">
+					<li>
+						<h:link value="My Order" outcome="/orders" rendered="#{securityInfo.login}" />
+					</li>
+					<li><h:link outcome="/index"><i class="material-icons">view_module</i> </h:link></li>
+					<li>
+						<h:form id="web">
+						<h:commandLink action="#{shoppingCart.showCartView()}">
+							<i class="material-icons left">shopping_cart</i>
+							<h:outputText id="cartCount" value="#{shoppingCart.bill.count == 0 ? '' : shoppingCart.bill.count}" />
+						</h:commandLink>
+						</h:form>
+					</li>
+					<li>
+						<a class="dropdown-button" href="#!" data-activates="dropdown2">
+							<i class="material-icons right">perm_identity</i>
+						</a>
+					</li>
+				</ul>
+			
+				<ul class="side-nav" id="mobile-menu">
+					<li>
+						<h:link value="My Order" outcome="/orders" rendered="#{securityInfo.login}" />
+					</li>
+					<li><h:link outcome="/index"><i class="material-icons right">view_module</i> Items </h:link></li>
+					<li>
+						<h:form id="mobile">
+						<h:commandLink action="#{shoppingCart.showCartView()}">
+							<i class="material-icons right">shopping_cart</i> Cart
+							<h:outputText id="cartCount" styleClass="chip" value="#{shoppingCart.bill.count}" />
+						</h:commandLink>
+						</h:form>
+					</li>
+					<li>
+						<a class="dropdown-button" href="#!" data-activates="dropdown1">
+							User <i class="material-icons right">perm_identity</i>
+						</a>
+					</li>
+				</ul>
+			</div>
+	    		
+		</div>
+	</nav>
+	</div>
+
+	<div class="container">
+		<h:messages showDetail="true" showSummary="false" />
+		<ui:insert name="content">
+		</ui:insert>
+	</div>
+	
+	<footer class="container center MarTop20 MarBot20">
+		Powered by Java Developer Class
+	</footer>
+	
+	<h:form>
+		<b:userEdit formId="login" isLogin="true" formTitle="Sign In"
+			pass="#{loginBean.pass}" login="#{loginBean.login}" />
+	</h:form>
+	
+	<h:form>
+		<b:userEdit formId="signUp" isLogin="false" 
+			pass="#{loginBean.pass}" name="#{loginBean.name}" formTitle="Sign Up" login="#{loginBean.login}" />
+	</h:form>
+
+	<script>
+		$(document).ready(function(){
+			$('.modal-trigger').leanModal();
+			$(".button-collapse").sideNav();
+		});
+ 	</script>
+ 	
+
+</body> 
+</html>

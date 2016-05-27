@@ -1,0 +1,39 @@
+<div xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<composite:interface>
+	<composite:attribute name="bill" type="com.solt.jsf.entity.Bill" required="true" />
+</composite:interface>
+
+<composite:implementation>
+	
+	<h:dataTable value="#{cc.attrs.bill.orders}" var="od" styleClass="table table-condensed">
+		<h:column>
+			<f:facet name="header">Item</f:facet>
+			#{od.item.item}
+		</h:column>
+		<h:column>
+			<f:facet name="header">Count</f:facet>
+			#{od.count}
+		</h:column>
+		<h:column>
+			<f:facet name="header">Unit Price</f:facet>
+			#{od.item.price}
+			<f:facet name="footer">
+				Total
+			</f:facet>
+		</h:column>
+		<h:column>
+			<f:facet name="header">Total</f:facet>
+			#{od.total}
+			<f:facet name="footer">
+				#{cc.attrs.bill.total}
+			</f:facet>
+		</h:column>
+	
+	</h:dataTable>
+</composite:implementation>
+
+</div>

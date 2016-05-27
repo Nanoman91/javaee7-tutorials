@@ -1,0 +1,30 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	<composite:interface>
+		<composite:attribute name="item" type="com.jdc.book.entity.Item" required="true"></composite:attribute>
+		<composite:attribute name="actionListener" method-signature="void method(com.jdc.book.entity.Item)"></composite:attribute>
+		<composite:attribute name="targetId" type="java.lang.String" required="true"></composite:attribute>
+
+	</composite:interface>
+	<composite:implementation>
+		<div class="card teal lighten-5">
+			<div class="card-image">
+				<h:graphicImage name="#{cc.attrs.item.picture}" library="img" />
+			</div>
+			
+			<div class="card-content">
+				
+				<p class="card-title teal-text darken-3">
+					#{cc.attrs.item.name}
+					<h:commandLink styleClass="btn-floating right teal darken-3" actionListener="#{cc.attrs.actionListener}" >
+						<i class="material-icons">add</i>
+						<f:ajax execute="@this" render="#{cc.attrs.targetId}"></f:ajax>
+					</h:commandLink>
+				</p>	
+				<p class="Fs11 chip teal lighten-3">#{cc.attrs.item.price} MMK</p>
+			</div>
+		</div>
+	</composite:implementation>
+</div>

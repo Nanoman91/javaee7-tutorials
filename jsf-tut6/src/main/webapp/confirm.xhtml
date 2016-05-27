@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ms="http://java.sun.com/jsf/composite/MyShop">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">Confirm</ui:define>
+		
+		<ui:define name="content">
+		
+			<div class="row">
+				
+				<div class="col-lg-8">
+					<h4 class="page-header">My Orders</h4>
+
+					<ms:confirmOrder bill="#{cartBean.bill}"></ms:confirmOrder>
+				</div>
+				
+				<div class="col-lg-4">
+					<h4 class="page-header">Contact Info</h4>
+
+					<ms:confirmContact user="#{orderBean.user}" orderDate="#{cartBean.bill.date}" rendered="#{not empty orderBean.user.name}" />
+				</div>
+			
+			</div>
+		
+			<h:form>
+				<h:commandLink action="/cartView" styleClass="btn btn-default MarRight5">
+					<i class="glyphicon glyphicon-shopping-cart"></i> My Cart
+				</h:commandLink>
+
+				<h:commandLink action="/addUser" styleClass="btn btn-info MarRight5">
+					<i class="glyphicon glyphicon-user"></i> Edit User
+				</h:commandLink>
+			
+				<h:commandLink action="#{orderBean.takeOrder()}" styleClass="btn btn-success MarRight5">
+					<i class="glyphicon glyphicon-usd"></i> Take Order
+				</h:commandLink>
+
+			</h:form>
+		
+		</ui:define>
+	</ui:composition>
+</html>

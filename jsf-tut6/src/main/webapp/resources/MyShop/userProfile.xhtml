@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>Not present in rendered output</title>
+</head>
+<body>
+<composite:interface>
+	<composite:attribute name="user" type="com.solt.jsf.entity.User" required="true" />
+	<composite:attribute name="showEditBtn" type="boolean" default="false" />
+</composite:interface>
+<composite:implementation>
+	<h:panelGrid columns="2" styleClass="table table-condense">
+	
+		<h:outputLabel value="Name" />
+		<h:outputText value="#{cc.attrs.user.name}" />
+		
+		<h:outputLabel value="Phone" />
+		<h:outputText value="#{cc.attrs.user.phone}" />
+
+		<h:outputLabel value="Email" />
+		<h:outputText value="#{cc.attrs.user.email}" />
+
+		<h:outputLabel value="Address" />
+		<h:outputText value="#{cc.attrs.user.address}" />
+		
+		<h:panelGroup rendered="#{cc.attrs.showEditBtn}"/>
+		
+		<h:panelGroup rendered="#{cc.attrs.showEditBtn}">
+			<a href="#" class="btn btn-default" type="button" data-toggle="modal" data-target="#editModel">
+				<i class="glyphicon glyphicon-pencil MarRight10" />Edit
+			</a>
+		</h:panelGroup>
+
+	</h:panelGrid>	
+</composite:implementation>
+</body>
+</html>

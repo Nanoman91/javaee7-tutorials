@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ms="http://java.sun.com/jsf/composite/MyShop">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">My Orders</ui:define>
+		
+		<ui:define name="content">
+		
+			<h:panelGroup rendered="#{ not empty myOrderBean.myBill }">
+				<h4 class="page-header">#{cartBean.user.name}'s Orders</h4>
+				
+				<div class="row">
+					<ui:repeat var="bill" value="#{myOrderBean.myBill}">
+						<div class="col-lg-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4>
+										<h:outputText value="#{bill.date}" converter="#{customDateConverter}" />
+									</h4>
+								</div> 
+								
+								<div class="panel-body">
+									<ms:confirmOrder bill="#{bill}"></ms:confirmOrder>
+								</div>	
+							</div>
+						</div>					
+					</ui:repeat>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{empty myOrderBean.myBill}">
+				<div class="alert alert-info" role="alert">
+					You have no order history!
+				</div>
+			</h:panelGroup>
+		
+		</ui:define>
+	</ui:composition>
+</html>

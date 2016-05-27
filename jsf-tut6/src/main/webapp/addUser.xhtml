@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">Add User</ui:define>
+		
+		<ui:define name="content">
+			
+			<h3 class="page-header">Add User</h3>
+			
+			<div class="row">
+				<div class="col-lg-8">
+					<h:form styleClass="form-horizontal">
+						<div class="form-group">
+							<h:outputLabel value="Name" styleClass="control-label col-xs-2" />
+							<div class="col-xs-8">
+								<h:inputText value="#{orderBean.user.name}" styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Phone" styleClass="control-label col-xs-2" />
+							<div class="col-xs-8">
+								<h:inputText value="#{orderBean.user.phone}" styleClass="form-control"  />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Email" styleClass="control-label col-xs-2" />
+							<div class="col-xs-8">
+								<h:inputText value="#{orderBean.user.email}" styleClass="form-control"  />
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Address" styleClass="control-label col-xs-2" />
+							<div class="col-xs-8">
+								<h:inputTextarea value="#{orderBean.user.address}" styleClass="form-control"  />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-8 col-xs-offset-2">
+								<h:commandLink action="/cartView" styleClass="btn btn-info MarRight5">
+									<i class="glyphicon glyphicon-shopping-cart"></i> Cart View
+								</h:commandLink>
+
+								<h:commandLink action="/confirm" styleClass="btn btn-success">
+									<i class="glyphicon glyphicon-list-alt"></i> Confirm
+								</h:commandLink>
+							</div>
+						</div>
+					</h:form>				
+				</div>
+			</div>
+		
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://java.sun.com/jsf/composite/book">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">
+			Items
+		</ui:define>
+		
+		<ui:define name="content">
+			
+			<div class="card">
+				<h:graphicImage name="cover.png" library="img" styleClass="responsive-img" />
+			</div>
+			
+			<h:form>
+				<div class="row">
+					<ui:repeat var="item" value="#{items}">
+						<div class="col l4 m6 s12">
+							<b:itemReference item="#{item}" 
+								actionListener="#{shoppingCart.addToCart(item)}"
+								targetId=":web:cartCount :mobile:cartCount" />
+						</div>
+					</ui:repeat>
+				</div>
+			</h:form>
+			
+		</ui:define>
+
+	</ui:composition>
+</html>

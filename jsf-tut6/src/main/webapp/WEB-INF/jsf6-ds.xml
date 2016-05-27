@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+	<datasource jndi-name="java:jboss/datasources/jsf6DS"
+		enabled="true" use-java-context="true" pool-name="jsf6DS">
+		<connection-url>jdbc:mysql://localhost:3306/jsf6_db</connection-url>
+		<driver>mysql</driver>
+		<security>
+			<user-name>root</user-name>
+			<password>admin</password>
+		</security>
+	</datasource>
+</datasources>

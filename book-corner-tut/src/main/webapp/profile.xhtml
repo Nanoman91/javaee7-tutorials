@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+		<ui:define name="title">
+			Profile
+		</ui:define>
+		
+		<ui:define name="content">
+			<h2>User Profile</h2>
+			
+			<div class="card">
+				<div class="card-content">
+					<h:outputText value="#{profileBean.user.name}" styleClass="card-title" />
+					<a href="#profileEdit" class="btn-floating red white-text right modal-trigger">
+						<i class="material-icons">edit</i>
+					</a>
+					<div class="divider MarBot10" />
+					
+					<div class="row">
+						<span class="col s12 m3 grey-text">Login ID</span>
+						<h:outputText value="#{profileBean.user.loginId}" styleClass="col s12 m9" />
+					</div>
+					<div class="row">
+						<span class="col s12 m3 grey-text">Phone</span>
+						<h:outputText value="#{profileBean.user.phone}" styleClass="col s12 m9" />
+					</div>
+					<div class="row">
+						<span class="col s12 m3 grey-text">Email</span>
+						<h:outputText value="#{profileBean.user.email}" styleClass="col s12 m9" />
+					</div>
+					<div class="row">
+						<span class="col s12 m3 grey-text">Address</span>
+						<h:outputText value="#{profileBean.user.address}" styleClass="col s12 m9" />
+					</div>
+				</div>
+				
+			</div>
+			
+			<h:form>
+			<div id="profileEdit" class="modal">
+				<div class="modal-content">
+					<h4>Edit Profile</h4>
+					<div class="row">
+						<div class="input-field col s12 m12">
+							<h:outputLabel value="Name" />
+							<h:inputText value="#{profileBean.user.name}" />							
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 m6">
+							<h:outputLabel value="Phone" />
+							<h:inputText value="#{profileBean.user.phone}" />							
+						</div>
+						<div class="input-field col s12 m6">
+							<h:outputLabel value="Email" />
+							<h:inputText value="#{profileBean.user.email}" />							
+						</div>
+					</div>
+					<div class="input-field">
+						<h:outputLabel value="Address" />
+						<h:inputTextarea styleClass="materialize-textarea" value="#{profileBean.user.address}" />							
+					</div>
+				</div>
+				<div class="modal-footer">
+					<h:commandButton action="#{profileBean.update()}" value="Save" styleClass="btn-flat" />
+					<a href="#" class="modal-action modal-close btn-flat">Close</a>
+				</div>
+			</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</html>

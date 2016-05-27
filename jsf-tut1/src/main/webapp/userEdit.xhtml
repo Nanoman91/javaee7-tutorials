@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/template.xhtml">
+	
+		<ui:define name="title">#{not empty newUserBean.id ? 'Edit' : 'Add New'}</ui:define>
+		
+		<ui:define name="pageTitle">#{not empty newUserBean.id ? 'Edit User' : 'Add New User'}</ui:define>
+		
+		<ui:define name="content">
+			
+			<div class="row">
+				<div class="col-lg-6 col-xs-10">
+					<h:form styleClass="form-horizontal">
+						<h:inputHidden value="#{newUserBean.id}" id="id" />
+						
+						<h:messages showDetail="true" showSummary="false" />
+						
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Name *" />
+							<div class="col-sm-10">
+								<h:inputText value="#{newUserBean.user.name}" 
+									styleClass="form-control"
+									required="true" requiredMessage="Please Enter User Name!" />
+							</div>
+						</div>
+
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Dob" />
+							<div class="col-sm-10">
+								<h:inputText value="#{newUserBean.user.dob}" 
+									styleClass="form-control" converter="#{dobConverter}"/>
+							</div>
+						</div>
+							
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Gender" />
+							<div class="col-sm-10">
+								<h:selectOneRadio value="#{newUserBean.user.gender}" styleClass="multi-select">
+									<f:selectItems value="#{newUserBean.genders}" 
+										var="g" itemLabel="#{g}" itemValue="#{g}" />
+								</h:selectOneRadio>
+							</div>
+						</div>
+		
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Education" />
+							<div class="col-sm-10">
+								<h:selectOneMenu styleClass="form-control" value="#{newUserBean.user.education}">
+									<f:selectItem itemLabel="Select Education"/>
+									<f:selectItems value="#{newUserBean.educations}" var="e"
+										itemLabel="#{e}" itemValue="#{e}"  />
+								</h:selectOneMenu>
+							</div>
+						</div>
+							
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Phone" />
+							<div class="col-sm-10">
+								<h:inputText value="#{newUserBean.user.phone}" styleClass="form-control" />
+							</div>
+						</div>
+		
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Email" />
+							<div class="col-sm-10">
+								<h:inputText value="#{newUserBean.user.email}" styleClass="form-control" />
+							</div>
+						</div>
+							
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Address" />
+							<div class="col-sm-10">
+								<h:inputTextarea value="#{newUserBean.user.address}" styleClass="form-control" rows="4" cols="30" />
+							</div>
+						</div>
+		
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Interest" />
+							<div class="col-sm-10">
+								<h:selectManyCheckbox value="#{newUserBean.user.interest}" styleClass="multi-select">
+									<f:selectItem itemValue="Fashion Design"/>
+									<f:selectItem itemValue="Science"/>
+									<f:selectItem itemValue="Auto Mobile"/>
+									<f:selectItem itemValue="Arts"/>
+								</h:selectManyCheckbox>
+							</div>
+						</div>
+		
+						<div class="form-group">
+		 					<h:outputLabel styleClass="col-sm-2 control-label" value="Agreement" />
+							<div class="col-sm-10 checkbox">
+								<label>
+									<h:selectBooleanCheckbox id="agreement" value="#{newUserBean.agree}" />
+									I agree terms and conditions.		
+								</label>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<h:commandButton value="Clear" type="reset" styleClass="btn btn-default MarRight10" ></h:commandButton>
+								<h:commandButton value="#{ not empty newUserBean.id ? 'Edit User' : 'Add User'}" 
+									action="#{newUserBean.save}" styleClass="btn btn-success"></h:commandButton>
+							</div>
+						</div>
+				
+					</h:form>
+				</div>			
+			</div>
+
+			
+		</ui:define>
+	</ui:composition>
+</html>

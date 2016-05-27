@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head>
+	<title><ui:insert name="title"></ui:insert> | </title>
+	<h:outputStylesheet name="materialize.min.css" library="css" />
+	<h:outputStylesheet name="material-icon.css" library="css" />
+	<h:outputStylesheet name="common.css" library="css" />
+</h:head> 
+<body> 
+	<nav>
+	</nav>
+
+	<ui:insert name="content">
+	</ui:insert>
+	
+	<footer>
+		Powered by Java Developer Class
+	</footer>
+	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
+	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
+</body> 
+</html>

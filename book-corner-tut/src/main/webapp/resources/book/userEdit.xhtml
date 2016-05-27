@@ -1,0 +1,44 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="formId" type="java.lang.String" required="true" />
+		<composite:attribute name="formTitle" type="java.lang.String" required="true" />
+		<composite:attribute name="isLogin" type="boolean" required="true" />
+		<composite:attribute name="name" type="java.lang.String" />
+		<composite:attribute name="login" type="java.lang.String" required="true" />
+		<composite:attribute name="pass" type="java.lang.String" required="true" />
+	</composite:interface>
+	<composite:implementation>
+	<div id="#{cc.attrs.formId}" class="modal">
+		<div class="modal-content">
+			<h4>#{cc.attrs.formTitle}</h4>
+			<h:panelGroup rendered="#{not cc.attrs.isLogin}">
+				<div class="input-field">
+					<h:outputLabel value="Name" />
+					<h:inputText id="name" value="#{cc.attrs.name}" 
+						required="true" requiredMessage="You need to enter user name." />
+				</div>
+			</h:panelGroup>
+			<div class="input-field">
+				<h:outputLabel value="Login ID" />
+				<h:inputText id="login" value="#{cc.attrs.login}" 
+					required="true" requiredMessage="You must enter login Id."/>
+			</div>
+			<div class="input-field">
+				<h:outputLabel value="Password" />
+				<h:inputSecret id="pass" value="#{cc.attrs.pass}" 
+					required="true" requiredMessage="You must enter password."/>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<h:commandLink action="#{loginBean.signUp()}" value="Sign Up" styleClass="modal-action btn-flat" rendered="#{not cc.attrs.isLogin}" />
+			<h:commandLink action="#{loginBean.login()}" value="Sign Up" styleClass="modal-action btn-flat" rendered="#{cc.attrs.isLogin}" />
+			<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		</div>
+	</div>
+
+	</composite:implementation>
+</div>

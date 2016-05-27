@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ms="http://java.sun.com/jsf/composite/MyShop">
+
+<h:head>
+	<title><ui:insert name="title">Home</ui:insert> | Book Corner</title>
+	<h:outputStylesheet name="bootstrap.min.css" library="css" />
+	<h:outputStylesheet name="common.css" library="css" />
+	
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../resources/css/common.css" />
+</h:head> 
+<body style="padding-top: 70px;"> 
+
+	<h:outputScript name="jquery.min.js" library="js" />
+	<h:outputScript name="bootstrap.min.js" library="js" />
+
+	<!-- menu -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<h:link styleClass="navbar-brand" outcome="/index">
+					<i class="glyphicon glyphicon-book"></i> Book Corner
+				</h:link>
+			</div>
+			
+			<ul class="nav navbar-nav">
+				<li>
+					<h:link value="Items" outcome="/index" />
+				</li>
+				<li>
+					<h:link id="myOrder" value="My Orders" outcome="/myOrders" rendered="#{cartBean.login}" />
+				</li>
+			</ul>
+			
+			<h:form id="securityMenu">
+				<ul class="nav navbar-nav  navbar-right">
+					<li>
+						<h:commandLink action="#{orderBean.checkOut}" p:data-toggle="tooltip" p:data-placement="left" title="Check Out">
+							<span class="badge">
+								<i class="glyphicon glyphicon-shopping-cart MarRight5"></i> <h:outputText value="#{cartBean.count}" id="cartCount" />
+							</span>
+						</h:commandLink>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+							 aria-haspopup="true" aria-expended="false" >
+							<i class="glyphicon glyphicon-cog"></i>
+						</a>
+						
+						<h:panelGroup rendered="#{not cartBean.login}">
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#" type="button" data-toggle="modal" data-target="#loginModel">
+										<i class="glyphicon glyphicon-log-in MarRight10" />Sign In
+									</a>
+								</li>
+							</ul>	
+						</h:panelGroup>
+						
+						<h:panelGroup rendered="#{cartBean.login}">
+							<ul class="dropdown-menu">
+								<li>
+									<h:link outcome="/userInfo">
+										<i class="glyphicon glyphicon-user MarRight10" />Profile
+									</h:link>
+								</li>
+								<li>
+									<h:commandLink action="#{loginBean.signOut}" >
+										<i class="glyphicon glyphicon-log-out MarRight10" />Sign Out
+									</h:commandLink>		
+								</li>
+							</ul>
+						</h:panelGroup>
+						
+					</li>
+				</ul>
+			</h:form>
+
+		
+		</div>
+	</nav>
+	
+	
+	<!-- Page Content -->
+	<div class="container">
+
+		<h:panelGroup rendered="#{not empty facesContext.messageList}">
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true"><i class="glyphicon glyphicon-remove"></i></span>
+				</button>
+				<h:messages showDetail="true" showSummary="false" />
+			</div>
+		</h:panelGroup>
+
+		<ui:insert name="content"></ui:insert>
+	</div>
+
+
+	<!-- Modal -->
+	<ms:editUser user="#{cartBean.user}" targetView="index" cmpId="loginModel" />	
+	
+	<script>
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
+</body> 
+</html>

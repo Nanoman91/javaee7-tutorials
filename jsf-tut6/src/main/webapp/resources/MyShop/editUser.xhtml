@@ -1,0 +1,64 @@
+<div xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<composite:interface>
+	<composite:attribute name="user" type="com.solt.jsf.entity.User" required="true" />
+	<composite:attribute name="targetView" type="java.lang.String" required="true" />
+	<composite:attribute name="cmpId" type="java.lang.String" required="true" />
+</composite:interface>
+
+<composite:implementation>
+
+<div class="modal fade" id="#{cc.attrs.cmpId}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">User Information</h4>
+			</div>
+			
+			<h:form styleClass="form-horizontal">
+				<div class="modal-body">
+					<div class="form-group">
+						<h:outputLabel value="Name" styleClass="control-label col-xs-2 col-xs-offset-1" />
+						<div class="col-xs-8">
+							<h:inputText value="#{cc.attrs.user.name}" styleClass="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Phone" styleClass="control-label col-xs-2 col-xs-offset-1" />
+						<div class="col-xs-8">
+							<h:inputText value="#{cc.attrs.user.phone}" styleClass="form-control"  />
+						</div>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Email" styleClass="control-label col-xs-2 col-xs-offset-1" />
+						<div class="col-xs-8">
+							<h:inputText value="#{cc.attrs.user.email}" styleClass="form-control"  />
+						</div>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Address" styleClass="control-label col-xs-2 col-xs-offset-1" />
+						<div class="col-xs-8">
+							<h:inputTextarea value="#{cc.attrs.user.address}" styleClass="form-control"  />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-xs-8 col-xs-offset-3">
+							<button type="button" class="btn btn-default MarRight5" data-dismiss="modal">Close</button>
+							<h:commandButton value="Sign In" styleClass="btn btn-success"
+								action="#{loginBean.signIn(cc.attrs.user, cc.attrs.targetView)}" />
+						</div>
+					</div>
+					
+				</div>
+				
+			</h:form>
+		
+		</div>
+	</div>
+</div>		
+</composite:implementation>
+</div>
