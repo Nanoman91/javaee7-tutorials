@@ -52,4 +52,12 @@ public class LoginBean {
     	return "/home?faces-redirect=true";
     }
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

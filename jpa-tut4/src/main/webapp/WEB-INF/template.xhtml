@@ -5,13 +5,13 @@
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head>
-	<title><ui:insert name="title"></ui:insert> | </title>
+	<title><ui:insert name="title"></ui:insert> | Blogs</title>
 	<h:outputStylesheet name="materialize.min.css" library="css" />
 	<h:outputStylesheet name="material-icon.css" library="css" />
 	<h:outputStylesheet name="common.css" library="css" />
 </h:head> 
 <body> 
-	<ul id="dropdown1" class="dropdown-content" >
+	<ul id="dropdown1" class="dropdown-content conf-menu" >
 		<li>
 			<a class="modal-trigger" href="#singUpModal">Sign Up</a>
 		</li>
@@ -30,7 +30,7 @@
 	</ul>
 	<nav>
 		<div class="nav-wrapper container">
-			<h:link value="My Blog" outcome="/home" styleClass="brand-logo left"/>
+			<h:link value="Blogs" outcome="/home" styleClass="brand-logo left"/>
 			<ul class="right">
 				<li>
 					<h:link value="My Blogs" outcome="/user/blogs"/>
@@ -42,9 +42,7 @@
 					<h:link value="Add Blog" outcome="/user/addBlog"/>
 				</li>
 				<li>
-					<a href="#!" class="dropdown-button" data-activates="dropdown1">
-						<i class="material-icons">settings</i>
-					</a>
+					<a href="#!" class="dropdown-button" data-activates="dropdown1" >Configuration<i class="material-icons right">settings</i></a>
 				</li>
 			</ul>
 		</div>
@@ -62,6 +60,22 @@
 		<div class="modal" id="singInModal">
 			<div class="modal-content">
 				<h4>Sign In</h4>
+				
+				<div class="input-field">
+					<h:inputText value="#{loginBean.user.loginId}" />
+					<h:outputLabel value="Login ID" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{loginBean.user.password}" />
+					<h:outputLabel value="Password" />
+				</div>
+				
+			</div>
+			
+			<div class="modal-footer">
+				<h:commandButton action="#{loginBean.login()}" value="SIGN IN" styleClass="btn-flat" />
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
 			</div>
 		</div>
 	</h:form>
@@ -71,15 +85,58 @@
 		<div class="modal" id="singUpModal">
 			<div class="modal-content">
 				<h4>Sign Up</h4>
+
+				<div class="input-field">
+					<h:inputText value="#{loginBean.user.name}" />
+					<h:outputLabel value="Name" />
+				</div>
+
+				<div class="input-field">
+					<h:inputText value="#{loginBean.user.loginId}" />
+					<h:outputLabel value="Login ID" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{loginBean.user.password}" />
+					<h:outputLabel value="Password" />
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<h:commandButton action="#{loginBean.signUp()}" value="SIGN UP" styleClass="btn-flat" />
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
 			</div>
 		</div>
 	</h:form>
 		
 	<!-- Change Pass Form -->
-	<h:form>
+	<h:form id="changePassForm">
 		<div class="modal" id="changePassModal">
 			<div class="modal-content">
 				<h4>Change Password</h4>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.oldPass}" />
+					<h:outputLabel value="Old Password" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.newPass}" />
+					<h:outputLabel value="New Password" />
+				</div>
+
+				<div class="input-field">
+					<h:inputSecret value="#{userBean.confPass}" />
+					<h:outputLabel value="Confirm Password" />
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<h:commandButton actionListener="#{userBean.changePass()}" value="CHANGE PASSWORD" styleClass="btn-flat modal-action modal-close">
+					<f:ajax execute="changePassForm"></f:ajax>
+				</h:commandButton>
+				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
 			</div>
 		</div>
 	</h:form>

@@ -58,4 +58,12 @@
 .Fs36 {
 	font-size: 36px;
 }
+
+.conf-menu {
+	width: 180px;
+}
+
+.conf-menu a {
+	width: 180px;
+}
         
