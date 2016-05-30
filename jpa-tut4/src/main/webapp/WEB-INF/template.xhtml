@@ -11,7 +11,43 @@
 	<h:outputStylesheet name="common.css" library="css" />
 </h:head> 
 <body> 
+	<ul id="dropdown1" class="dropdown-content" >
+		<li>
+			<a class="modal-trigger" href="#singUpModal">Sign Up</a>
+		</li>
+		<li>
+			<a class="modal-trigger" href="#singInModal">Sign In</a>
+		</li>
+		<li>
+			<h:link value="Profile"/>
+		</li>
+		<li>
+			<a class="modal-trigger" href="#changePassModal">Change Password</a>
+		</li>
+		<li>
+			<h:link value="Sign Out"/>
+		</li>
+	</ul>
 	<nav>
+		<div class="nav-wrapper container">
+			<h:link value="My Blog" outcome="/home" styleClass="brand-logo left"/>
+			<ul class="right">
+				<li>
+					<h:link value="My Blogs" outcome="/user/blogs"/>
+				</li>
+				<li>
+					<h:link value="My Comments" outcome="/user/comments"/>
+				</li>
+				<li>
+					<h:link value="Add Blog" outcome="/user/addBlog"/>
+				</li>
+				<li>
+					<a href="#!" class="dropdown-button" data-activates="dropdown1">
+						<i class="material-icons">settings</i>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</nav>
 
 	<ui:insert name="content">
@@ -20,7 +56,42 @@
 	<footer>
 		Powered by Java Developer Class
 	</footer>
+	
+	<!-- Sign In Form -->
+	<h:form>
+		<div class="modal" id="singInModal">
+			<div class="modal-content">
+				<h4>Sign In</h4>
+			</div>
+		</div>
+	</h:form>
+	
+	<!-- Sign Up Form -->
+	<h:form>
+		<div class="modal" id="singUpModal">
+			<div class="modal-content">
+				<h4>Sign Up</h4>
+			</div>
+		</div>
+	</h:form>
+		
+	<!-- Change Pass Form -->
+	<h:form>
+		<div class="modal" id="changePassModal">
+			<div class="modal-content">
+				<h4>Change Password</h4>
+			</div>
+		</div>
+	</h:form>
+	
 	<h:outputScript name="jquery-2.2.2.min.js" library="js"></h:outputScript>
 	<h:outputScript name="materialize.min.js" library="js"></h:outputScript>
+	
+	<script>
+		$(document).ready(function(){
+			$('.dropdown-button').dropdown();
+			$('.modal-trigger').leanModal();
+		});
+	</script>
 </body> 
 </html>
