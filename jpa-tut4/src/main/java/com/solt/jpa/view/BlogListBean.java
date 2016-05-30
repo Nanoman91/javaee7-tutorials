@@ -1,6 +1,8 @@
 package com.solt.jpa.view;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,9 +39,17 @@ public class BlogListBean implements Serializable{
     
     @PostConstruct
     private void init() {
-    	dateTo = new Date();
-    	// TODO find start of month
-    	search();
+    	try {
+        	dateTo = new Date();
+        	
+        	DateFormat df1 = new SimpleDateFormat("yyyy-MM");
+        	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+        	dateTo = df2.parse(df1.format(dateTo).concat("-01"));
+        	
+        	search();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     @ErrorHandler

@@ -1,6 +1,5 @@
 package com.solt.jpa.view;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -15,33 +14,37 @@ import com.solt.jpa.view.common.ErrorHandler;
 @Model
 public class LoginBean {
 
-    private User user;
+    private String name;
+    private String loginId;
+    private String password;
 
     @Inject
     private UserModel userModel;
     
-    @PostConstruct
-    private void init() {
-    	user = new User();
+    @ErrorHandler
+    public String login() {
+		internalLogin(loginId, password);
+    	return "/home?faces-redirect=true";
     }
 
     @ErrorHandler
-    public void login() {
-		internalLogin(user.getLoginId(), user.getPassword());
-    }
-
-    @ErrorHandler
-    public void signUp() {
+    public String signUp() {
+    	User user = new User();
+    	user.setName(name);
+    	user.setLoginId(loginId);
+    	user.setPassword(password);
     	user.getSecurity().setCreateUser(user.getLoginId());
     	user.getSecurity().setModUser(user.getLoginId());
     	userModel.createUser(user);
-    	internalLogin(user.getLoginId(), user.getPassword());
+    	internalLogin(loginId, password);
+    	
+    	return "/home?faces-redirect=true";
     }
 
     private void internalLogin(String loginId, String password) {
     	try {
         	HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-			request.login(user.getLoginId(), user.getPassword());
+			request.login(loginId, password);
 		} catch (ServletException e) {
 			throw new ApplicationException(e);
 		}
@@ -52,12 +55,30 @@ public class LoginBean {
     	return "/home?faces-redirect=true";
     }
 
-	public User getUser() {
-		return user;
+	public String getName() {
+		return name;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 
 }

@@ -11,27 +11,38 @@
 	<h:outputStylesheet name="common.css" library="css" />
 </h:head> 
 <body> 
+	
+	<h:form>
 	<ul id="dropdown1" class="dropdown-content conf-menu" >
-		<li>
-			<a class="modal-trigger" href="#singUpModal">Sign Up</a>
-		</li>
-		<li>
-			<a class="modal-trigger" href="#singInModal">Sign In</a>
-		</li>
-		<li>
-			<h:link value="Profile"/>
-		</li>
-		<li>
-			<a class="modal-trigger" href="#changePassModal">Change Password</a>
-		</li>
-		<li>
-			<h:link value="Sign Out"/>
-		</li>
+		<h:panelGroup rendered="#{empty loginUser}">
+			<li>
+				<a class="modal-trigger" href="#singUpModal">Sign Up</a>
+			</li>
+			<li>
+				<a class="modal-trigger" href="#singInModal">Sign In</a>
+			</li>
+		</h:panelGroup>
+		
+		<h:panelGroup rendered="#{not empty loginUser}">
+			
+			<li>
+				<h:link value="Profile" outcome="/user/profile" />
+			</li>
+			<li>
+				<a class="modal-trigger" href="#changePassModal">Change Password</a>
+			</li>
+			<li>
+				<h:commandLink action="#{loginBean.logout()}" value="Sign Out" />
+			</li>
+		</h:panelGroup>
 	</ul>
+	</h:form>
+	
 	<nav>
 		<div class="nav-wrapper container">
 			<h:link value="Blogs" outcome="/home" styleClass="brand-logo left"/>
 			<ul class="right">
+				<h:panelGroup rendered="#{not empty loginUser}">
 				<li>
 					<h:link value="My Blogs" outcome="/user/blogs"/>
 				</li>
@@ -41,6 +52,7 @@
 				<li>
 					<h:link value="Add Blog" outcome="/user/addBlog"/>
 				</li>
+				</h:panelGroup>
 				<li>
 					<a href="#!" class="dropdown-button" data-activates="dropdown1" >Configuration<i class="material-icons right">settings</i></a>
 				</li>
@@ -48,6 +60,7 @@
 		</div>
 	</nav>
 
+	<h:messages showDetail="true" showSummary="false" />
 	<ui:insert name="content">
 	</ui:insert>
 	
@@ -62,12 +75,12 @@
 				<h4>Sign In</h4>
 				
 				<div class="input-field">
-					<h:inputText value="#{loginBean.user.loginId}" />
+					<h:inputText value="#{loginBean.loginId}" />
 					<h:outputLabel value="Login ID" />
 				</div>
 
 				<div class="input-field">
-					<h:inputSecret value="#{loginBean.user.password}" />
+					<h:inputSecret value="#{loginBean.password}" />
 					<h:outputLabel value="Password" />
 				</div>
 				
@@ -87,17 +100,17 @@
 				<h4>Sign Up</h4>
 
 				<div class="input-field">
-					<h:inputText value="#{loginBean.user.name}" />
+					<h:inputText value="#{loginBean.name}" />
 					<h:outputLabel value="Name" />
 				</div>
 
 				<div class="input-field">
-					<h:inputText value="#{loginBean.user.loginId}" />
+					<h:inputText value="#{loginBean.loginId}" />
 					<h:outputLabel value="Login ID" />
 				</div>
 
 				<div class="input-field">
-					<h:inputSecret value="#{loginBean.user.password}" />
+					<h:inputSecret value="#{loginBean.password}" />
 					<h:outputLabel value="Password" />
 				</div>
 
