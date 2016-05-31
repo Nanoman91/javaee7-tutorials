@@ -10,6 +10,8 @@ import com.solt.jpa.entity.Category;
 public interface CategoryModel {
 
 
-    public List<Category> getAll();
+    List<Category> getAll();
+    
+    Category findById(int id);
 
 }

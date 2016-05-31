@@ -33,6 +33,7 @@ public class Blog implements Serializable {
 		tags = new HashSet<>();
 		rate = new ArrayList<>();
 		comments = new ArrayList<>();
+		status = Status.Edit;
     }
 
     @Id

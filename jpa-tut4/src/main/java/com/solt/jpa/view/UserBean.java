@@ -37,10 +37,11 @@ public class UserBean implements Serializable {
     }
 
     @ErrorHandler
-    public void changePass() {
+    public String changePass() {
     	user.getSecurity().setModification(new Date());
     	user.getSecurity().setModUser(user.getLoginId());
     	model.changePass(user.getLoginId(), oldPass, newPass, confPass);
+    	return "/home?faces-redirect=true";
     }
 
 	public User getUser() {

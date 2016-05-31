@@ -12,6 +12,7 @@ import javax.inject.Named;
 import com.solt.jpa.entity.Blog;
 import com.solt.jpa.entity.Comment;
 import com.solt.jpa.entity.User;
+import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.model.BlogModel;
 import com.solt.jpa.view.common.ErrorHandler;
 import com.solt.jpa.view.common.LoginUser;
@@ -42,8 +43,20 @@ public class BlogBean implements Serializable {
     	if(null != id) {
     		int intId = Integer.parseInt(id);
     		blog = model.findBlogById(intId);
+    		
     	}
     	
+    	if(null == loginUser) {
+    		if(blog.getStatus().equals(Status.Edit)) {
+    			blog = null;
+    		}
+    	}
+    	
+    	if(null != loginUser) {
+    		if(!blog.getUser().getLoginId().equals(loginUser.getLoginId())) {
+    			blog = null;
+    		}
+    	}
     }
 
     @ErrorHandler

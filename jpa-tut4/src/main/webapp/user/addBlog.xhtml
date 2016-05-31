@@ -6,9 +6,50 @@
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
+			Add New Blog
 		</ui:define>
 		
 		<ui:define name="content">
+			<h:form>
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Add New Blog</span>
+					
+					<div class="input-field">
+						<h:inputText value="#{newBlogBean.blog.title}" />
+						<h:outputLabel value="Title" />
+					</div>	
+					
+					<div class="row">
+						<div class="col l4 m6 s12">
+							<div class="input-field">
+								<h:selectOneMenu value="#{newBlogBean.blog.category}" converter="#{categoryConverter}" >
+									<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
+								</h:selectOneMenu>
+								<h:outputLabel value="Category" />
+							</div>
+						</div>
+						<div class="col l8 m6 s12">
+							<div class="input-field">
+								<h:inputText value="#{newBlogBean.tags}" />
+								<h:outputLabel value="Tags" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="input-field">
+						<h:inputTextarea id="body" value="#{newBlogBean.blog.body}" styleClass="materialize-textarea" rows="10" />
+						<h:outputLabel value="Blog Body" for="body" />
+					</div>	
+					
+					<div>
+						<h:selectBooleanCheckbox id="publish" value="#{newBlogBean.publish}" />
+						<h:outputLabel value="Publish" for="publish" styleClass="MarRight20" />
+						<h:commandLink action="#{newBlogBean.save()}" value="Add New Blog" styleClass="btn MarRight10" />
+					</div>			
+				</div>
+			</div>
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </html>

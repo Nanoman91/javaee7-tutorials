@@ -5,10 +5,14 @@
       xmlns:h="http://java.sun.com/jsf/html"> 
 
 <h:head>
-	<title><ui:insert name="title"></ui:insert> | Blogs</title>
+	<title><ui:insert name="title"></ui:insert> | Flash</title>
 	<h:outputStylesheet name="materialize.min.css" library="css" />
 	<h:outputStylesheet name="material-icon.css" library="css" />
 	<h:outputStylesheet name="common.css" library="css" />
+	
+	<link rel="stylesheet" href="../resources/css/materialize.min.css" />
+	<link rel="stylesheet" href="../resources/css/material-icon.css" />
+	<link rel="stylesheet" href="../resources/css/common.css" />
 </h:head> 
 <body> 
 	
@@ -40,7 +44,7 @@
 	
 	<nav>
 		<div class="nav-wrapper container">
-			<h:link value="Blogs" outcome="/home" styleClass="brand-logo left"/>
+			<h:link value="Flash" outcome="/home" styleClass="brand-logo left" />
 			<ul class="right">
 				<h:panelGroup rendered="#{not empty loginUser}">
 				<li>
@@ -60,11 +64,36 @@
 		</div>
 	</nav>
 
-	<h:messages showDetail="true" showSummary="false" />
-	<ui:insert name="content">
-	</ui:insert>
+	<div class="container MarTop20">
+
+		<h:messages id="message" showDetail="true" showSummary="false" styleClass="card-panel purple-text yellow lighten-4" />
+		
+		<div class="row">
+			<div class="col l9 m8 s12">
+				<ui:insert name="content">
+				</ui:insert>
+			</div>
+			<div class="col l3 m4 s12">
+				<ul class="collection with-header">
+					<li class="collection-header"><h4>Category</h4></li>
+					<ui:repeat var="c" value="#{allCategory}">
+						<li class="collection-item">
+							<div>
+							#{c.category}
+							<h:link styleClass="secondary-content">
+								<i class="material-icons">send</i>
+								<f:param name="cat" value="#{c.id}"></f:param>
+							</h:link>
+							</div>
+						</li>				
+					</ui:repeat>
+				</ul>
+			</div>
+		</div>
 	
-	<footer>
+	</div>
+	
+	<footer class="container center-align">
 		Powered by Java Developer Class
 	</footer>
 	
@@ -75,12 +104,14 @@
 				<h4>Sign In</h4>
 				
 				<div class="input-field">
-					<h:inputText value="#{loginBean.loginId}" />
+					<h:inputText value="#{loginBean.loginId}" 
+						required="true" requiredMessage="Please enter Login ID." />
 					<h:outputLabel value="Login ID" />
 				</div>
 
 				<div class="input-field">
-					<h:inputSecret value="#{loginBean.password}" />
+					<h:inputSecret value="#{loginBean.password}"
+						required="true" requiredMessage="Please enter password." />
 					<h:outputLabel value="Password" />
 				</div>
 				
@@ -100,17 +131,20 @@
 				<h4>Sign Up</h4>
 
 				<div class="input-field">
-					<h:inputText value="#{loginBean.name}" />
+					<h:inputText value="#{loginBean.name}" 
+					 	required="true" requiredMessage="You need to enter Name!"/>
 					<h:outputLabel value="Name" />
 				</div>
 
 				<div class="input-field">
-					<h:inputText value="#{loginBean.loginId}" />
+					<h:inputText value="#{loginBean.loginId}" 
+						required="true" requiredMessage="You must enter Login Id!"/>
 					<h:outputLabel value="Login ID" />
 				</div>
 
 				<div class="input-field">
-					<h:inputSecret value="#{loginBean.password}" />
+					<h:inputSecret value="#{loginBean.password}" 
+						required="true" requiredMessage="You must enter password!"/>
 					<h:outputLabel value="Password" />
 				</div>
 
@@ -146,9 +180,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<h:commandButton actionListener="#{userBean.changePass()}" value="CHANGE PASSWORD" styleClass="btn-flat modal-action modal-close">
-					<f:ajax execute="changePassForm"></f:ajax>
-				</h:commandButton>
+				<h:commandButton action="#{userBean.changePass()}" value="CHANGE PASSWORD" styleClass="btn-flat modal-action modal-close" />
 				<a href="#!" class="btn-flat modal-action modal-close" >CLOSE</a>
 			</div>
 		</div>
@@ -161,6 +193,7 @@
 		$(document).ready(function(){
 			$('.dropdown-button').dropdown();
 			$('.modal-trigger').leanModal();
+			$('select').material_select();
 		});
 	</script>
 </body> 

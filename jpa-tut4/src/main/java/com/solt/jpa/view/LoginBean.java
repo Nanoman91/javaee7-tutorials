@@ -29,6 +29,9 @@ public class LoginBean {
 
     @ErrorHandler
     public String signUp() {
+    	
+    	userModel.checkLoginId(loginId);
+    	
     	User user = new User();
     	user.setName(name);
     	user.setLoginId(loginId);

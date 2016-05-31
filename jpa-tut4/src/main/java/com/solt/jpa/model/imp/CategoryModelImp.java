@@ -22,4 +22,9 @@ public class CategoryModelImp implements CategoryModel {
 		return catDao.select(null, null);
 	}
 
+	@Override
+	public Category findById(int id) {
+		return catDao.findById(id);
+	}
+
 }
