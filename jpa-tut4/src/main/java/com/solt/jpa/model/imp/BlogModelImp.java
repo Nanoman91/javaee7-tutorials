@@ -28,11 +28,14 @@ public class BlogModelImp implements BlogModel {
 	private CommentDao commentDao;
 
     public Blog findBlogById(long id) {
-        return blogDao.findById(id);
+    	Blog b = blogDao.findById(id);
+    	b.getComments().size();
+    	b.getTagList();
+        return b;
     }
 
     public void deleteBlog(Blog blog) {
-    	blogDao.delete(blog);
+    	blogDao.delete(blog.getId());
     }
 
     public void createBlog(Blog blog) {

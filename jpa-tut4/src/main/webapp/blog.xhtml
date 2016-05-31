@@ -12,11 +12,77 @@
 		<ui:define name="content">
 			
 			<!-- Blog -->
-			
-			<!-- New Comment -->
+			<h:panelGroup rendered="#{not empty blogBean.blog}">
+			<div class="card">
+				<div class="card-content">
+					<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
+					<h:outputText value="#{blogBean.blog.category.category}" styleClass="chip MarRight10" />
+					<ui:repeat var="tag" value="#{blogBean.blog.tagList}">
+						<h:outputText value="#{tag}" styleClass="chip MarRight10" />
+					</ui:repeat>
+
+					<h:link styleClass="btn-floating right">
+						<i class="material-icons">edit</i>
+					</h:link>
+					<div class="divider" />
+
+					<div class="MarTop20 row">
+						<div class="col l2 center">
+							<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs60" id="commentCount" />
+							<br/>
+							<span class="Fs10 grey-text">Comments</span>						
+						</div>
+						<div class="col l10">
+							<p>
+								<h:outputText value="#{blogBean.blog.body}" />
+							</p>
+
+						</div>
+						
+					</div>
+					<div class="divider MarTop20" />
+					<h:link value="#{blogBean.blog.user.name}" styleClass="Fs10" />
+					<h:outputText value="#{blogBean.blog.security.creation}" styleClass="right Fs9" />
+					
+				</div>
+			</div>
+			</h:panelGroup>
 			
 			<!-- Comments -->
-			
+			<h4 class="grey-text">Comments</h4>
+			<h:form id="commentList">
+				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
+					<div class="card">
+						<div class="card-content">
+							
+							<p>
+								<h:outputText value="#{cmt.comment}" />
+							</p>
+							<div class="MarTop20" />
+							<h:outputText value="#{cmt.user.name}" styleClass="left Fs10 grey-text" />
+							<h:outputText value="#{cmt.security.creation}" styleClass="right Fs10" />
+						</div>
+					</div>
+				</ui:repeat>
+			</h:form>
+
+			<!-- New Comment -->
+			<h:form>
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Add New Comment</span>
+					<div class="input-field">
+						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment"/>
+						<h:outputLabel value="Comment" for="comment" />
+					</div>	
+					<div class="card-action">
+						<h:commandLink actionListener="#{blogBean.addComment()}" value="Add Comment">
+							<f:ajax execute="@form" render="commentList @this commentCount"></f:ajax>
+						</h:commandLink>
+					</div>				
+				</div>
+			</div>
+			</h:form>			
 		</ui:define>
 	</ui:composition>
 </html>

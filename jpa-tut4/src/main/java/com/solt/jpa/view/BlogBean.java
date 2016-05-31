@@ -41,8 +41,7 @@ public class BlogBean implements Serializable {
     				.getExternalContext()
     				.getRequestParameterMap().get("id");
     	if(null != id) {
-    		int intId = Integer.parseInt(id);
-    		blog = model.findBlogById(intId);
+    		blog = model.findBlogById(Long.parseLong(id));
     		
     	}
     	

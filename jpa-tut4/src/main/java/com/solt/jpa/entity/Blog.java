@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class Blog implements Serializable {
@@ -31,8 +32,8 @@ public class Blog implements Serializable {
 	public Blog() {
 		security = new SecurityInfo();
 		tags = new HashSet<>();
-		rate = new ArrayList<>();
-		comments = new ArrayList<>();
+		rate = new HashSet<>();
+		comments = new HashSet<>();
 		status = Status.Edit;
     }
 
@@ -51,16 +52,16 @@ public class Blog implements Serializable {
     @ManyToOne
     private Category category;
 
-    @ElementCollection
+    @ElementCollection(fetch = EAGER)
     @CollectionTable
     private Set<String> tags;
 
     @ElementCollection
     @CollectionTable
-    private List<Integer> rate;
+    private Set<Integer> rate;
     
-    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "blog")
-    private List<Comment> comments;
+    @OneToMany(cascade = ALL, orphanRemoval = true, mappedBy = "blog", fetch = EAGER)
+    private Set<Comment> comments;
 
     @Enumerated
     private Status status;
@@ -80,13 +81,17 @@ public class Blog implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-	public List<Comment> getComments() {
+	public Set<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Set<Comment> comments) {
 		comments.forEach(this::addComment);
 		this.comments = comments;
+	}
+	
+	public List<Comment> getCommentList() {
+		return new ArrayList<>(comments);
 	}
 	
 	public void removeComment(Comment comment) {
@@ -143,11 +148,11 @@ public class Blog implements Serializable {
 		this.tags = tags;
 	}
 
-	public List<Integer> getRate() {
+	public Set<Integer> getRate() {
 		return rate;
 	}
 
-	public void setRate(List<Integer> rate) {
+	public void setRate(Set<Integer> rate) {
 		this.rate = rate;
 	}
 

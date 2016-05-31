@@ -30,8 +30,8 @@ public abstract class AbstractDao<T> implements Dao<T> {
 		em.merge(t);
 	}
 	@Override
-	public void delete(T t) {
-		em.remove(t);
+	public void delete(Object id) {
+		em.remove(em.find(type, id));
 	}
 	@Override
 	public List<T> select(String where, Map<String, Object> params) {

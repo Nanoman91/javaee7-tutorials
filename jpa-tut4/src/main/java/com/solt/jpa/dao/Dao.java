@@ -9,7 +9,7 @@ public interface Dao<T> extends Serializable {
 
     public void update(T t);
 
-    public void delete(T t);
+    public void delete(Object id);
 
     public List<T> select(String where, Map<String, Object> params);
 

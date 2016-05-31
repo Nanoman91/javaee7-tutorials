@@ -13,6 +13,23 @@
 			<div class="card">
 				<h:graphicImage styleClass="responsive-img card-image" name="cover-flash.png" library="img" />
 			</div>
+			
+			<ui:repeat var="blog" value="#{blogListBean.blogs}">
+				<div class="card">
+					<div class="card-content">
+						<div class="row">
+							<div class="col l2 center">
+								<h:outputText value="#{blog.comments.size()}" styleClass="Fs60" />
+								<h:outputLabel value="Comments" styleClass="Fs10" />
+							</div>
+							<div class="col l10">
+								<h5><h:outputText value="#{blog.title}" /> </h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ui:repeat>
+			
 		</ui:define>
 	</ui:composition>
 </html>
