@@ -44,7 +44,7 @@ public class BlogListBean implements Serializable{
         	
         	DateFormat df1 = new SimpleDateFormat("yyyy-MM");
         	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        	dateTo = df2.parse(df1.format(dateTo).concat("-01"));
+        	dateFrom = df2.parse(df1.format(dateTo).concat("-01"));
         	
         	search();
 		} catch (Exception e) {
@@ -63,8 +63,8 @@ public class BlogListBean implements Serializable{
     	params.put(SearchParam.Category, category);
     	params.put(SearchParam.Tag, tag);
     	params.put(SearchParam.Keyword, keyword);
-    	params.put(SearchParam.DateFrom, dateFrom);
-    	params.put(SearchParam.DateTo, dateTo);
+//    	params.put(SearchParam.DateFrom, dateFrom);
+//    	params.put(SearchParam.DateTo, dateTo);
     	params.put(SearchParam.Status, Status.Published);
     	
     	blogs = model.searchBlog(params);

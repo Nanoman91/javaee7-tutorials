@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -15,19 +16,7 @@
 			</div>
 			
 			<ui:repeat var="blog" value="#{blogListBean.blogs}">
-				<div class="card">
-					<div class="card-content">
-						<div class="row">
-							<div class="col l2 center">
-								<h:outputText value="#{blog.comments.size()}" styleClass="Fs60" />
-								<h:outputLabel value="Comments" styleClass="Fs10" />
-							</div>
-							<div class="col l10">
-								<h5><h:outputText value="#{blog.title}" /> </h5>
-							</div>
-						</div>
-					</div>
-				</div>
+				<flash:blogItem blog="#{blog}" />
 			</ui:repeat>
 			
 		</ui:define>

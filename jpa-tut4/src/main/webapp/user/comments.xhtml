@@ -6,9 +6,31 @@
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
+			My Foot Prints
 		</ui:define>
 		
 		<ui:define name="content">
+			<ui:repeat var="cmt" value="#{userCommentsBean.comments}">
+				<h:form>
+				<div class="card">
+					<div class="card-content">
+						<h:outputText value="#{cmt.blog.title}" styleClass="card-title" />
+						<h:commandLink actionListener="#{userCommentsBean.edit(cmt)}" styleClass="btn-floating right"  >
+							<i class="material-icons">edit</i>
+							<f:ajax execute="@form"></f:ajax>
+						</h:commandLink>
+						<div class="divider MarBot10" />
+						
+						<p>
+							<h:outputText value="#{cmt.comment}" />
+						</p>
+						<h:outputText value="#{cmt.security.modification}" styleClass="Fs10 grey-text" >
+							<f:converter binding="#{commonDateTimeConverter}"></f:converter>
+						</h:outputText>
+					</div>
+				</div>
+				</h:form>
+			</ui:repeat>
 		</ui:define>
 	</ui:composition>
 </html>

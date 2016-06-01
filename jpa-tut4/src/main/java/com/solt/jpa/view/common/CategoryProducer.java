@@ -3,6 +3,7 @@ package com.solt.jpa.view.common;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,6 +11,7 @@ import javax.inject.Named;
 import com.solt.jpa.entity.Category;
 import com.solt.jpa.model.CategoryModel;
 
+@ApplicationScoped
 public class CategoryProducer {
 
     private List<Category> allCategory;

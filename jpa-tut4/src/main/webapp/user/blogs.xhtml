@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -11,55 +12,8 @@
 		
 		<ui:define name="content">
 			<ui:repeat var="blog" value="#{userBlogsBean.blogs}">
-				<h:form>
-				<div class="card">
-					<div class="card-content">
-						<div class="row">
-							<div class="col l2 center">
-								<h:outputText value="#{blog.comments.size()}" styleClass="Fs60" /><br/>
-								<h:outputLabel value="Comments" styleClass="Fs10" />
-							</div>
-							<div class="col l10">
-								<h:link styleClass="btn-floating right" outcome="/blog">
-									<i class="material-icons">subject</i>
-									<f:param name="id" value="#{blog.id}"></f:param>
-								</h:link>
-								<h5><h:outputText value="#{blog.title}" /> </h5>
-								<h:outputText value="#{blog.status}" styleClass="Fs10 grey-text" />
-								<h:outputText value="#{blog.security.creation}" styleClass="right Fs10 grey-text" />
-								<p>
-								<h:outputText value="#{blog.body}" />
-								</p>
-								
-								<div class="MarTop10">
-									<h:outputText value="#{blog.category.category}" styleClass="chip MarRight10" />
-									<ui:repeat var="tag" value="#{blog.tagList}">
-										<h:outputText value="#{tag}" styleClass="chip MarRight10" />
-									</ui:repeat>
-								</div>
-								
-								<div class="divider MarTop10 MarBot10" />								
-								<h:commandLink value="Delete" actionListener="#{userBlogsBean.delete(blog)}" styleClass="btn MarRight10">
-									<f:ajax execute="@this" render="@all"></f:ajax>
-								</h:commandLink>
-								<h:commandLink value="Publish" actionListener="#{userBlogsBean.publish(blog)}" 
-									styleClass="btn MarRight10" rendered="#{blog.status eq 'Edit'}">
-									<f:ajax execute="@this" render="@form" ></f:ajax>
-								</h:commandLink>
-								<h:commandLink value="Un Publish" actionListener="#{userBlogsBean.unPublish(blog)}"
-									styleClass="btn MarRight10" rendered="#{blog.status eq 'Published'}">
-									<f:ajax execute="@this" render="@form" ></f:ajax>
-								</h:commandLink>
-								<h:link value="Edit" styleClass="btn" outcome="/user/editBlog">
-									<f:param name="id" value="#{blog.id}"></f:param>
-								</h:link>
-							</div>
-						</div>
-					</div>
-				</div>
-			</h:form>
+				<flash:blogItem blog="#{blog}" isMyBlogs="true" />
 			</ui:repeat>
-		
 		</ui:define>
 	</ui:composition>
 </html>

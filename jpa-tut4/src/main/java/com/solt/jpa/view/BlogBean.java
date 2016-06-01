@@ -70,6 +70,7 @@ public class BlogBean implements Serializable {
     	comment.setUser(loginUser);
     	blog.addComment(comment);
     	model.saveBlog(blog);
+    	newComment = "";
     }
 
     @ErrorHandler

@@ -23,7 +23,8 @@
 					<div class="row">
 						<div class="col l4 m6 s12">
 							<div class="input-field">
-								<h:selectOneMenu value="#{newBlogBean.blog.category}" converter="#{categoryConverter}" >
+								<h:selectOneMenu value="#{newBlogBean.blog.category}" >
+									<f:converter binding="#{categoryConverter}"></f:converter>
 									<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
 								</h:selectOneMenu>
 								<h:outputLabel value="Category" />

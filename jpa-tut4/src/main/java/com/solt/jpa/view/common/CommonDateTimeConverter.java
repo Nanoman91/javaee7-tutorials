@@ -1,31 +1,35 @@
 package com.solt.jpa.view.common;
 
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.solt.jpa.entity.Category;
 
 @Named
 @RequestScoped
-public class CategoryConverter implements Converter  {
-	
-	@Inject
-	private List<Category> allCategory;
+public class CommonDateTimeConverter implements Converter {
 
+	private DateFormat df;
+	
+	@PostConstruct
+	private void init() {
+		df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	}
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		if(null != value) {
-			for (Category category : allCategory) {
-				if(category.getCategory().equals(value)) {
-					return category;
-				}
+		try {
+			if(null != value) {
+				return df.parse(value);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -33,11 +37,10 @@ public class CategoryConverter implements Converter  {
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if(null != value) {
-			Category c = (Category) value;
-			return c.getCategory();
+			Date d = (Date) value;
+			return df.format(d);
 		}
 		return null;
 	}
-
 
 }
