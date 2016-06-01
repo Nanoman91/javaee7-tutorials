@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -11,25 +12,7 @@
 		
 		<ui:define name="content">
 			<ui:repeat var="cmt" value="#{userCommentsBean.comments}">
-				<h:form>
-				<div class="card">
-					<div class="card-content">
-						<h:outputText value="#{cmt.blog.title}" styleClass="card-title" />
-						<h:commandLink actionListener="#{userCommentsBean.edit(cmt)}" styleClass="btn-floating right"  >
-							<i class="material-icons">edit</i>
-							<f:ajax execute="@form"></f:ajax>
-						</h:commandLink>
-						<div class="divider MarBot10" />
-						
-						<p>
-							<h:outputText value="#{cmt.comment}" />
-						</p>
-						<h:outputText value="#{cmt.security.modification}" styleClass="Fs10 grey-text" >
-							<f:converter binding="#{commonDateTimeConverter}"></f:converter>
-						</h:outputText>
-					</div>
-				</div>
-				</h:form>
+				<flash:commentItem cmt="#{cmt}" isMyComments="true" />
 			</ui:repeat>
 		</ui:define>
 	</ui:composition>

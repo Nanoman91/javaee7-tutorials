@@ -1,7 +1,10 @@
 package com.solt.jpa.view;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -26,6 +29,8 @@ public class BlogBean implements Serializable {
 	private Blog blog;
     private String newComment;
     private Comment selectedComment;
+    private String tags;
+    private boolean publish;
     
     @LoginUser
     @Inject
@@ -42,7 +47,15 @@ public class BlogBean implements Serializable {
     				.getRequestParameterMap().get("id");
     	if(null != id) {
     		blog = model.findBlogById(Long.parseLong(id));
-    		
+    		publish = blog.getStatus().equals(Status.Published);
+    		StringBuffer sb = new StringBuffer();
+    		for(int i=0; i < blog.getTagList().size(); i++) {
+    			if(i > 0) {
+    				sb.append(",");
+    			}
+    			sb.append(blog.getTagList().get(i));
+    		}
+    		tags = sb.toString();
     	}
     	
     	if(null == loginUser) {
@@ -59,8 +72,14 @@ public class BlogBean implements Serializable {
     }
 
     @ErrorHandler
-    public void save() {
+    public String save() {
+    	blog.setStatus(publish ? Status.Published: Status.Edit);
+    	if(null != tags) {
+    		Set<String> set = new HashSet<>(Arrays.asList(tags.split(",")));
+    		blog.setTags(set);
+    	}
     	model.saveBlog(blog);
+    	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
     @ErrorHandler
@@ -114,7 +133,21 @@ public class BlogBean implements Serializable {
 	public void setSelectedComment(Comment selectedComment) {
 		this.selectedComment = selectedComment;
 	}
-    
-    
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public boolean isPublish() {
+		return publish;
+	}
+
+	public void setPublish(boolean publish) {
+		this.publish = publish;
+	}
 
 }

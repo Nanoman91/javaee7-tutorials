@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:flash="http://java.sun.com/jsf/composite/flash">
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
@@ -17,8 +18,10 @@
 				<div class="card-content">
 					<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
 
-					<h:link styleClass="btn-floating right" rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
+					<h:link styleClass="btn-floating right" outcome="/user/editBlog"
+						rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
 						<i class="material-icons">edit</i>
+						<f:param name="id" value="#{blogBean.blog.id}"></f:param>
 					</h:link>
 					<div class="divider" />
 
@@ -58,27 +61,7 @@
 			<h4 class="grey-text">Comments</h4>
 			<h:form id="commentList">
 				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
-					<div class="card">
-						<div class="card-content">
-							<h:form rendered="#{loginUser.loginId eq cmt.user.loginId}">
-								<h:commandLink styleClass="btn-floating right blue">
-									<i class="material-icons">edit</i>
-								</h:commandLink>
-								<h:commandLink styleClass="btn-floating right red MarRight10" 
-									actionListener="#{blogBean.deleteComment(cmt)}">
-									<i class="material-icons">delete</i>
-									<f:ajax execute="@this" render="@all"></f:ajax>
-								</h:commandLink>
-							</h:form>
-							<p>
-								<h:outputText value="#{cmt.comment}" />
-							</p>
-							<h:outputText value="#{cmt.user.name}" styleClass="left Fs10 grey-text" /><br/>
-							<h:outputText value="#{cmt.security.creation}" styleClass="grey-text Fs10" >
-								<f:converter binding="#{commonDateTimeConverter}" />
-							</h:outputText>
-						</div>
-					</div>
+					<flash:commentItem cmt="#{cmt}" />
 				</ui:repeat>
 			</h:form>
 

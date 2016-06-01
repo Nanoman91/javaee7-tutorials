@@ -1,7 +1,7 @@
 <div xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets"
-xmlns:composite="http://java.sun.com/jsf/composite">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
 <composite:interface>
 	<composite:attribute name="blog" type="com.solt.jpa.entity.Blog" required="true"></composite:attribute>
 	<composite:attribute name="isMyBlogs" type="boolean" default="false"></composite:attribute>
@@ -12,26 +12,26 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 		<div class="card-content">
 			<div class="row">
 				<div class="col l2 center">
-					<h:outputText value="#{blog.comments.size()}" styleClass="Fs60" /><br/>
+					<h:outputText value="#{cc.attrs.blog.comments.size()}" styleClass="Fs60" /><br/>
 					<h:outputLabel value="Comments" styleClass="Fs10" />
 				</div>
 				<div class="col l10">
 					<h:link styleClass="btn-floating right" outcome="/blog">
 						<i class="material-icons">subject</i>
-						<f:param name="id" value="#{blog.id}"></f:param>
+						<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
 					</h:link>
-					<h5><h:outputText value="#{blog.title}" /> </h5>
-					<h:outputText value="#{blog.status}" styleClass="Fs10 grey-text" />
-					<h:outputText value="#{blog.security.creation}" styleClass="right Fs10 grey-text" >
+					<h5><h:outputText value="#{cc.attrs.blog.title}" /> </h5>
+					<h:outputText value="#{cc.attrs.blog.status}" styleClass="Fs10 grey-text" />
+					<h:outputText value="#{cc.attrs.blog.security.creation}" styleClass="right Fs10 grey-text" >
 						<f:converter binding="#{commonDateTimeConverter}" />
 					</h:outputText>
 					<p>
-					<h:outputText value="#{blog.body}" />
+					<h:outputText value="#{cc.attrs.blog.body}" />
 					</p>
 					
 					<div class="MarTop10">
-						<h:outputText value="#{blog.category.category}" styleClass="chip MarRight10" />
-						<ui:repeat var="tag" value="#{blog.tagList}">
+						<h:outputText value="#{cc.attrs.blog.category.category}" styleClass="chip MarRight10" />
+						<ui:repeat var="tag" value="#{cc.attrs.blog.tagList}">
 							<h:outputText value="#{tag}" styleClass="chip MarRight10" />
 						</ui:repeat>
 					</div>
@@ -42,15 +42,15 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 							<f:ajax execute="@this" render="@all"></f:ajax>
 						</h:commandLink>
 						<h:commandLink value="Publish" actionListener="#{userBlogsBean.publish(blog)}" 
-							styleClass="btn MarRight10 blue accent-3" rendered="#{blog.status eq 'Edit'}">
+							styleClass="btn MarRight10 blue accent-3" rendered="#{cc.attrs.blog.status eq 'Edit'}">
 							<f:ajax execute="@this" render="@form" ></f:ajax>
 						</h:commandLink>
 						<h:commandLink value="Un Publish" actionListener="#{userBlogsBean.unPublish(blog)}"
-							styleClass="btn MarRight10 blue accent-3" rendered="#{blog.status eq 'Published'}">
+							styleClass="btn MarRight10 blue accent-3" rendered="#{cc.attrs.blog.status eq 'Published'}">
 							<f:ajax execute="@this" render="@form" ></f:ajax>
 						</h:commandLink>
 						<h:link value="Edit" styleClass="btn teal" outcome="/user/editBlog">
-							<f:param name="id" value="#{blog.id}"></f:param>
+							<f:param name="id" value="#{cc.attrs.blog.id}"></f:param>
 						</h:link>
 					</h:panelGroup>
 				</div>

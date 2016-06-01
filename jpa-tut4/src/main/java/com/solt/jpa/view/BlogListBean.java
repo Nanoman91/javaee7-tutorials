@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,6 +19,7 @@ import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.entity.Category;
 import com.solt.jpa.model.BlogModel;
 import com.solt.jpa.model.BlogModel.SearchParam;
+import com.solt.jpa.model.CategoryModel;
 import com.solt.jpa.view.common.ErrorHandler;
 
 @Named
@@ -36,6 +38,8 @@ public class BlogListBean implements Serializable{
     
     @Inject
     private BlogModel model;
+    @Inject
+    private CategoryModel catModel;
     
     @PostConstruct
     private void init() {
@@ -45,6 +49,11 @@ public class BlogListBean implements Serializable{
         	DateFormat df1 = new SimpleDateFormat("yyyy-MM");
         	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
         	dateFrom = df2.parse(df1.format(dateTo).concat("-01"));
+        	
+        	String catId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cat");
+        	if(null != catId) {
+        		category = catModel.findById(Integer.parseInt(catId));
+        	}
         	
         	search();
 		} catch (Exception e) {
@@ -68,6 +77,11 @@ public class BlogListBean implements Serializable{
     	params.put(SearchParam.Status, Status.Published);
     	
     	blogs = model.searchBlog(params);
+    }
+    
+    public String searchByKeyword() {
+    	search();
+    	return "/home";
     }
     
 	public List<Blog> getBlogs() {

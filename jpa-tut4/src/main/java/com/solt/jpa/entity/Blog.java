@@ -162,6 +162,9 @@ public class Blog implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+		if(status.equals(Status.Published)) {
+			this.publishDate = new Date();
+		}
 	}
 
 	public SecurityInfo getSecurity() {

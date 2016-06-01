@@ -61,6 +61,7 @@
 					<a href="#!" class="dropdown-button" data-activates="dropdown1" >Configuration<i class="material-icons right">settings</i></a>
 				</li>
 			</ul>
+
 		</div>
 	</nav>
 
@@ -80,7 +81,7 @@
 						<li class="collection-item">
 							<div>
 							#{c.category}
-							<h:link styleClass="secondary-content">
+							<h:link styleClass="secondary-content" outcome="/home">
 								<i class="material-icons">send</i>
 								<f:param name="cat" value="#{c.id}"></f:param>
 							</h:link>
