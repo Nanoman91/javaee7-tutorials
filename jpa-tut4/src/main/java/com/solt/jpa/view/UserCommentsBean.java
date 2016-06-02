@@ -30,6 +30,7 @@ public class UserCommentsBean implements Serializable {
     private User loginUser;
     
     private Comment selectedComment;
+    private String modalScript;
     
     @PostConstruct
     private void init() {
@@ -39,21 +40,23 @@ public class UserCommentsBean implements Serializable {
     @ErrorHandler
     public void edit(Comment comment) {
     	this.selectedComment = comment;
+    	modalScript = "$('#editComment').openModal();";
     }
     
     @ErrorHandler
-    public void save(Comment comment) {
-    	comment.getSecurity().setModification(new Date());
-    	comment.getSecurity().setModUser(loginUser.getLoginId());
-    	model.saveComment(comment);
+    public String save() {
+    	selectedComment.getSecurity().setModification(new Date());
+    	selectedComment.getSecurity().setModUser(loginUser.getLoginId());
+    	model.saveComment(selectedComment);
     	
-    	init();
+    	return "/user/comments?faces-redirect=true";
     }
 
     @ErrorHandler
-    public void delete(Comment comment) {
-    	comment.getBlog().getComments().remove(comment);
+    public String delete(Comment comment) {
+    	comment.getBlog().removeComment(comment);
     	model.saveBlog(comment.getBlog());
+    	return "/user/comments?faces-redirect=true";
     }
     
     public List<Comment> getComments() {
@@ -70,6 +73,14 @@ public class UserCommentsBean implements Serializable {
 
 	public void setSelectedComment(Comment selectedComment) {
 		this.selectedComment = selectedComment;
+	}
+
+	public String getModalScript() {
+		return modalScript;
+	}
+
+	public void setModalScript(String modalScript) {
+		this.modalScript = modalScript;
 	}
  
 }

@@ -59,12 +59,34 @@
 			
 			<!-- Comments -->
 			<h4 class="grey-text">Comments</h4>
-			<h:form id="commentList">
+			<h:panelGroup id="commentList">
 				<ui:repeat var="cmt" value="#{blogBean.blog.commentList}">
-					<flash:commentItem cmt="#{cmt}" />
+					<flash:commentItem cmt="#{cmt}" 
+						editActionListener="#{blogBean.editComment(cmt)}"
+						deleteAction="#{blogBean.deleteComment(cmt)}" />
 				</ui:repeat>
-			</h:form>
+			</h:panelGroup>
 
+			<h:form id="editCommentForm">
+			
+				<div class="modal" id="editComment">
+					<div class="modal-content">
+						<h5>Edit Comment</h5>
+			
+						<div class="input-field" id="commentData">
+							<h:inputTextarea value="#{blogBean.selectedComment.comment}" styleClass="materialize-textarea" id="comment"/>
+						</div>	
+						<h:commandLink styleClass="btn teal" action="#{blogBean.saveComment()}" value="Save Comment" />
+			
+					</div>
+				</div>
+
+				<script>
+					#{blogBean.modalScript}
+				</script>
+
+			</h:form>
+	
 			<!-- New Comment -->
 			<h:form>
 			<div class="card">
@@ -74,9 +96,7 @@
 						<h:inputTextarea value="#{blogBean.newComment}" styleClass="materialize-textarea" id="comment"/>
 						<h:outputLabel value="Comment" for="comment" />
 					</div>	
-					<h:commandLink styleClass="btn teal" actionListener="#{blogBean.addComment()}" value="Add Comment">
-						<f:ajax execute="@form" render="commentList @this commentCount"></f:ajax>
-					</h:commandLink>
+					<h:commandLink styleClass="btn teal" action="#{blogBean.addComment()}" value="Add Comment" />
 				</div>
 			</div>
 			</h:form>			

@@ -84,7 +84,7 @@ public class Blog implements Serializable {
 	public Set<Comment> getComments() {
 		return comments;
 	}
-
+	
 	public void setComments(Set<Comment> comments) {
 		comments.forEach(this::addComment);
 		this.comments = comments;

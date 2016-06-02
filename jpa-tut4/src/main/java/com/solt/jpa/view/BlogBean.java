@@ -13,9 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.solt.jpa.entity.Blog;
+import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.entity.Comment;
 import com.solt.jpa.entity.User;
-import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.model.BlogModel;
 import com.solt.jpa.view.common.ErrorHandler;
 import com.solt.jpa.view.common.LoginUser;
@@ -39,6 +39,8 @@ public class BlogBean implements Serializable {
     @Inject
     private BlogModel model;
     
+    private String modalScript;
+    
 
     @PostConstruct
     public void init() {
@@ -57,18 +59,6 @@ public class BlogBean implements Serializable {
     		}
     		tags = sb.toString();
     	}
-    	
-    	if(null == loginUser) {
-    		if(blog.getStatus().equals(Status.Edit)) {
-    			blog = null;
-    		}
-    	}
-    	
-    	if(null != loginUser) {
-    		if(!blog.getUser().getLoginId().equals(loginUser.getLoginId())) {
-    			blog = null;
-    		}
-    	}
     }
 
     @ErrorHandler
@@ -83,31 +73,43 @@ public class BlogBean implements Serializable {
     }
 
     @ErrorHandler
-    public void addComment() {
+    public String addComment() {
     	Comment comment = new Comment();
     	comment.setComment(newComment);
     	comment.setUser(loginUser);
     	blog.addComment(comment);
     	model.saveBlog(blog);
-    	newComment = "";
+    	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
     @ErrorHandler
     public void editComment(Comment comment) {
     	this.selectedComment = comment;
+    	modalScript = "$('#editComment').openModal();";
     }
 
     @ErrorHandler
-    public void saveComment() {
-    	selectedComment.getSecurity().setModification(new Date());
-    	selectedComment.getSecurity().setModUser(loginUser.getLoginId());
-    	model.saveComment(selectedComment);
+    public String saveComment() {
+    	
+    	for(Comment cmt : blog.getCommentList()) {
+    		if(cmt.getId() == selectedComment.getId()) {
+    			cmt.setComment(selectedComment.getComment());
+    			cmt.getSecurity().setModification(new Date());
+    			cmt.getSecurity().setModUser(loginUser.getLoginId());
+    	    	model.saveComment(cmt);
+    		}
+    	}
+    	
+    	selectedComment = null;
+    	
+    	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
     @ErrorHandler
-    public void deleteComment(Comment comment) {
+    public String deleteComment(Comment comment) {
     	blog.removeComment(comment);
     	model.saveBlog(blog);
+    	return "/blog?faces-redirect=true&id=" + blog.getId();
     }
 
 	public Blog getBlog() {
@@ -148,6 +150,14 @@ public class BlogBean implements Serializable {
 
 	public void setPublish(boolean publish) {
 		this.publish = publish;
+	}
+
+	public String getModalScript() {
+		return modalScript;
+	}
+
+	public void setModalScript(String modalScript) {
+		this.modalScript = modalScript;
 	}
 
 }
