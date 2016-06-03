@@ -7,11 +7,12 @@
 
 	<ui:composition template="/WEB-INF/template.xhtml">
 		<ui:define name="title">
-			Add New Blog
+			New Memory
 		</ui:define>
 		
 		<ui:define name="content">
-			<flash:editBlog saveAction="#{newBlogBean.save()}" blog="#{newBlogBean.blog}" 
+			<flash:editBlog saveAction="#{newBlogBean.save()}" 
+				blog="#{newBlogBean.blog}" 
 				publish="#{newBlogBean.publish}"
 				title="New Memory"
 				actionName="Add To Flash"

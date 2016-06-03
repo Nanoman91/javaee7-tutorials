@@ -27,10 +27,12 @@ public class BlogBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Blog blog;
-    private String newComment;
-    private Comment selectedComment;
     private String tags;
     private boolean publish;
+
+    private String newComment;
+    private Comment selectedComment;
+    private String modalScript;
     
     @LoginUser
     @Inject
@@ -38,9 +40,6 @@ public class BlogBean implements Serializable {
 
     @Inject
     private BlogModel model;
-    
-    private String modalScript;
-    
 
     @PostConstruct
     public void init() {
@@ -99,8 +98,6 @@ public class BlogBean implements Serializable {
     	    	model.saveComment(cmt);
     		}
     	}
-    	
-    	selectedComment = null;
     	
     	return "/blog?faces-redirect=true&id=" + blog.getId();
     }

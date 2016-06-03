@@ -25,7 +25,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 					<div class="col l4 m6 s12">
 						<div class="input-field">
 							<h:selectOneMenu value="#{cc.attrs.blog.category}" >
-								<f:converter binding="#{categoryConverter}"></f:converter>
+								<f:converter binding="#{categoryConverter}" />
 								<f:selectItems value="#{allCategory}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
 							</h:selectOneMenu>
 							<h:outputLabel value="Category" />
@@ -41,7 +41,7 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				
 				<div class="input-field">
 					<h:inputTextarea id="body" value="#{cc.attrs.blog.body}" styleClass="materialize-textarea" rows="10" />
-					<h:outputLabel value="Blog Body" for="body" />
+					<h:outputLabel value="Memory" for="body" />
 				</div>	
 				
 				<div>

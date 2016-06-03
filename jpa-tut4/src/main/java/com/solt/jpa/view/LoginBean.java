@@ -30,16 +30,20 @@ public class LoginBean {
     @ErrorHandler
     public String signUp() {
     	
-    	userModel.checkLoginId(loginId);
-    	
-    	User user = new User();
-    	user.setName(name);
-    	user.setLoginId(loginId);
-    	user.setPassword(password);
-    	user.getSecurity().setCreateUser(user.getLoginId());
-    	user.getSecurity().setModUser(user.getLoginId());
-    	userModel.createUser(user);
-    	internalLogin(loginId, password);
+    	try {
+        	userModel.checkLoginId(loginId);
+        	
+        	User user = new User();
+        	user.setName(name);
+        	user.setLoginId(loginId);
+        	user.setPassword(password);
+        	user.getSecurity().setCreateUser(user.getLoginId());
+        	user.getSecurity().setModUser(user.getLoginId());
+        	userModel.createUser(user);
+        	internalLogin(loginId, password);
+		} catch (Exception e) {
+			throw new ApplicationException(e);
+		}
     	
     	return "/home?faces-redirect=true";
     }

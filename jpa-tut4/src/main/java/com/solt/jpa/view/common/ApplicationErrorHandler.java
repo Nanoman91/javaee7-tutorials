@@ -22,6 +22,9 @@ public class ApplicationErrorHandler implements Serializable{
 		} catch (ApplicationException e) {
 			FacesMessage message = new FacesMessage("Application Error", e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (Exception e) {
+			FacesMessage message = new FacesMessage("Application Error", e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		return null;
 	}

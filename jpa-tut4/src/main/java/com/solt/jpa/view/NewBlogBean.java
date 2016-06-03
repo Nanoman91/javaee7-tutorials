@@ -9,6 +9,7 @@ import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
 import com.solt.jpa.entity.Blog;
+import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.entity.User;
 import com.solt.jpa.model.BlogModel;
 import com.solt.jpa.view.common.ErrorHandler;
@@ -41,6 +42,7 @@ public class NewBlogBean {
     		Set<String> set = new HashSet<>(Arrays.asList(tags.split(",")));
         	blog.setTags(set);
     	}
+    	blog.setStatus((publish) ? Status.Published : Status.Edit);
 		model.createBlog(blog);
 		return "/blog?faces-redirect=true&id=" + blog.getId();
     }

@@ -16,43 +16,43 @@
 			<h:panelGroup rendered="#{not empty blogBean.blog}">
 			<div class="card">
 				<div class="card-content">
-					<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
-
-					<h:link styleClass="btn-floating right" outcome="/user/editBlog"
-						rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
-						<i class="material-icons">edit</i>
-						<f:param name="id" value="#{blogBean.blog.id}"></f:param>
-					</h:link>
-					<div class="divider" />
-
-					<div class="MarTop20 row">
-						<div class="col l2 center">
+				
+					<div class="row">
+					
+						<div class="col l3 center-align">
 							<h:outputText value="#{blogBean.blog.comments.size()}" styleClass="Fs60" id="commentCount" />
 							<br/>
-							<span class="Fs10 grey-text">Comments</span><br/>						
-							<h:link value="#{blogBean.blog.user.name}" styleClass="Fs10" />
+							<h:outputText value="#{blogBean.blog.category.category}" /><br/>
+							<h:link value="#{blogBean.blog.user.name}" styleClass="Fs10" outcome="/home">
+								<f:param name="user" value="#{blogBean.blog.user.loginId}"></f:param>
+							</h:link>
 						</div>
-						<div class="col l10">
-							<div class="MarBot10">
-								<h:outputText value="#{blogBean.blog.category.category}" styleClass="chip MarRight10 teal white-text" />
-								<ui:repeat var="tag" value="#{blogBean.blog.tagList}">
-									<h:outputText value="#{tag}" styleClass="chip MarRight10" />
-								</ui:repeat>
-							</div>
+						
+						<div class="col l9">
+							<h:outputText value="#{blogBean.blog.title}" styleClass="card-title MarRight30" />
+							<h:link styleClass="btn-floating right blue" outcome="/user/editBlog"
+								rendered="#{loginUser.loginId eq blogBean.blog.user.loginId}">
+								<i class="material-icons">edit</i>
+								<f:param name="id" value="#{blogBean.blog.id}"></f:param>
+							</h:link>
+							<br/>
+							<h:outputText value="#{blogBean.blog.security.creation}" styleClass="grey-text Fs10" >
+								<f:converter binding="#{commonDateTimeConverter}"></f:converter>
+							</h:outputText>
 
 							<p>
 								<h:outputText value="#{blogBean.blog.body}" />
 							</p>
-						</div>
+							<div class="MarTop10">
+								<ui:repeat var="tag" value="#{blogBean.blog.tagList}">
+									<h:outputText value="#{tag}" styleClass="chip MarRight10 Fs10" />
+								</ui:repeat>
+							</div>
+		
 						
+						</div>
 					</div>
-					<div class="divider MarTop20 MarBot10" />
 
-
-					<h:outputText value="#{blogBean.blog.security.creation}" styleClass="right Fs9" >
-						<f:converter binding="#{commonDateTimeConverter}"></f:converter>
-					</h:outputText>
-					
 				</div>
 			</div>
 			</h:panelGroup>

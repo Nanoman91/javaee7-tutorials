@@ -1,15 +1,11 @@
 package com.solt.jpa.view;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,10 +13,13 @@ import javax.inject.Named;
 import com.solt.jpa.entity.Blog;
 import com.solt.jpa.entity.Blog.Status;
 import com.solt.jpa.entity.Category;
+import com.solt.jpa.entity.User;
 import com.solt.jpa.model.BlogModel;
 import com.solt.jpa.model.BlogModel.SearchParam;
 import com.solt.jpa.model.CategoryModel;
+import com.solt.jpa.model.UserModel;
 import com.solt.jpa.view.common.ErrorHandler;
+import com.solt.jpa.view.common.ParamsUtils;
 
 @Named
 @ViewScoped
@@ -32,27 +31,28 @@ public class BlogListBean implements Serializable{
     private Category category;
     private String tag;
     private String keyword;
-    
-    private Date dateFrom;
-    private Date dateTo;
+    private User user;
     
     @Inject
     private BlogModel model;
+    @Inject
+    private UserModel userModel;
     @Inject
     private CategoryModel catModel;
     
     @PostConstruct
     private void init() {
     	try {
-        	dateTo = new Date();
         	
-        	DateFormat df1 = new SimpleDateFormat("yyyy-MM");
-        	DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-        	dateFrom = df2.parse(df1.format(dateTo).concat("-01"));
-        	
-        	String catId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cat");
+        	String catId = ParamsUtils.getRequestParam("cat");
         	if(null != catId) {
         		category = catModel.findById(Integer.parseInt(catId));
+        	}
+        	
+        	String loginId = ParamsUtils.getRequestParam("user");
+        	
+        	if(null != loginId) {
+        		user = userModel.getUser(loginId);
         	}
         	
         	search();
@@ -72,8 +72,7 @@ public class BlogListBean implements Serializable{
     	params.put(SearchParam.Category, category);
     	params.put(SearchParam.Tag, tag);
     	params.put(SearchParam.Keyword, keyword);
-//    	params.put(SearchParam.DateFrom, dateFrom);
-//    	params.put(SearchParam.DateTo, dateTo);
+    	params.put(SearchParam.User, user);
     	params.put(SearchParam.Status, Status.Published);
     	
     	blogs = model.searchBlog(params);
@@ -116,19 +115,4 @@ public class BlogListBean implements Serializable{
 		this.keyword = keyword;
 	}
 
-	public Date getDateFrom() {
-		return dateFrom;
-	}
-
-	public void setDateFrom(Date dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-
-	public Date getDateTo() {
-		return dateTo;
-	}
-
-	public void setDateTo(Date dateTo) {
-		this.dateTo = dateTo;
-	}
 }
